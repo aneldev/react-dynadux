@@ -14,6 +14,18 @@ In this way we can **block render** of the component by the dispatched `action` 
 
 _New to Dynadux? Learn it [here](https://github.com/aneldev/dynadux#readme)_
 
+# Demo
+
+- Clone this repo
+- `yarn`
+- `yarn start`
+
+Check debugger's console which components rendered on each disparch.
+
+From 
+
+Demo code is under `/dev` folder.
+
 # Usage
 
 #### 1. Create an app store

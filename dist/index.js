@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("react"));
 	else if(typeof define === 'function' && define.amd)
-		define("dynadux-provider", ["react"], factory);
+		define("react-dynadux", ["react"], factory);
 	else if(typeof exports === 'object')
-		exports["dynadux-provider"] = factory(require("react"));
+		exports["react-dynadux"] = factory(require("react"));
 	else
-		root["dynadux-provider"] = factory(root["react"]);
+		root["react-dynadux"] = factory(root["react"]);
 })(window, function(__WEBPACK_EXTERNAL_MODULE_react__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -268,7 +268,7 @@ exports.connect = function (Component, config) {
 
     class_1.prototype.componentWillMount = function () {
       if (!this.store.provider) console.error("Dynadux connect: Your app store should return the `provider` property also where is returned by the Dynadux's `createStore` is order to be able to connect it. " + "Just add the line `provide: store.provider,` in the return of your appStore. " + // Todo: Update the readme link
-      "For more read the https://github.com/aneldev/dynadux-provider#1-create-an-app-store");
+      "For more read the https://github.com/aneldev/react-dynadux#1-create-an-app-store");
       if (!this.store.provider) return;
       this.store.provider.addChangeEventListener(this.handleStoreChange);
     };
@@ -301,8 +301,8 @@ exports.connect = function (Component, config) {
     return;
   }
 
-  reactHotLoader.register(__extends, "__extends", "/Users/dennisat/dev/dyna/dynadux-provider/src/connect.tsx");
-  reactHotLoader.register(__assign, "__assign", "/Users/dennisat/dev/dyna/dynadux-provider/src/connect.tsx");
+  reactHotLoader.register(__extends, "__extends", "/Users/dennisat/dev/dyna/react-dynadux/src/connect.tsx");
+  reactHotLoader.register(__assign, "__assign", "/Users/dennisat/dev/dyna/react-dynadux/src/connect.tsx");
 })();
 
 ;
@@ -353,7 +353,7 @@ exports.connect = connect_1.connect;
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/dennisat/dev/dyna/dynadux-provider/src/index.tsx */"./src/index.tsx");
+module.exports = __webpack_require__(/*! /Users/dennisat/dev/dyna/react-dynadux/src/index.tsx */"./src/index.tsx");
 
 
 /***/ }),

@@ -3558,10 +3558,10 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
-dynadux@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/dynadux/-/dynadux-2.1.2.tgz#da02e4d9a3a7286e888fc6e7794592b16b5e75e5"
-  integrity sha512-SnNISo/6NxT/d3/MlhBgg2KbI5+x2OgfrfZQEBmNWaL8zkYRjEezv1XGXd18CCHEZtEMIM6CeoajxBvBIEYh8A==
+dynadux@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/dynadux/-/dynadux-2.2.2.tgz#659ef8625832000f447e322abc1cb334e9e76fbe"
+  integrity sha512-oZO4oYFuXg2IW3/MJ+ggM/IZwOUFcu5BWhyrSQn+kE1hec4IxaHFJyVtdtyk0EMtFXFHRDL3N3wKZ7pts/gh0g==
 
 ecc-jsbn@~0.1.1:
   version "0.1.2"
