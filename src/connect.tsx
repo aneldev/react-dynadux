@@ -4,6 +4,7 @@ import { DynaDuxContext } from "./Provider";
 
 export interface IConnectConfig {
   shouldComponentUpdate?: (action: string, payload?: any) => boolean;
+  debounceMs?: number;
 }
 
 interface IWithStore {
