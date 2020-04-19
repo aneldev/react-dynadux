@@ -18,15 +18,7 @@ _New to Dynadux? Learn it [here](https://github.com/aneldev/dynadux#readme)_
 
 # Demo
 
-- Clone this repo
-- `yarn`
-- `yarn start`
-
-Check debugger's console, which components rendered on each dispatch.
-
-From 
-
-Demo code is under `/dev` folder.
+[![Edit React Dynadux example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-dynadux-debounce-example-rzp8r?fontsize=14&hidenavigation=1&theme=dark)
 
 # Usage
 
@@ -140,9 +132,9 @@ export const ToDos = connect(
 
 ```
 
-[![React Dynadux Debounce example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-dynadux-debounce-example-jxdy4?fontsize=14&hidenavigation=1&theme=dark)
+[![debounce Live Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-dynadux-debounce-example-jxdy4?fontsize=14&hidenavigation=1&theme=dark)
 
-This connection makes the component to be rendered every 60ms on intensive changes. The component is always rendered on the leading edge of the timeout.
+This connection makes the component to be rendered every 60ms on intensive changes. The component always renders on the leading edge of the timeout and on the timeout's expiration.
 
 ## Block component renders by action/payload
 
@@ -162,6 +154,7 @@ This connection makes the component to render only if the action is starting wit
 
 You can implement your logic when the component should be rendered or not by `action` name or `payload`'s content.
   
+[![shoundComponentUpdate Live Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-dynadux-debounce-example-rzp8r?fontsize=14&hidenavigation=1&theme=dark)
 
 # API
 
@@ -184,8 +177,7 @@ const createStore = () => {
 
   return {
     // Your getters, setters, methods
-    ...
-        
+    ...        
     // Important, pass the provider prop of the createStore above
     provider: store.provider,
   };
@@ -228,9 +220,10 @@ The 1st argument is the `Component` that we want to inject the Provider's `store
 The 2nd argument is optional and is a config object with below optional properties:
 
 #### `shouldComponentUpdate`
-Is a callback that will be called on each dispatch of the `store`. 
+Is a callback that is called on each dispatch of the `store`. 
 
 The callback is called with two arguments, the dispatched `action` and `payload`, and the callback should always return a boolean if the component should render or not.
+
 #### `debounce`
 Is config object of one property, the `timeout`.
 
