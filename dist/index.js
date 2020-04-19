@@ -156,10 +156,10 @@ exports.DynaDuxContext = React.createContext(null);
 exports.DynaDuxContext.displayName = "DynaduxContext";
 
 exports.Provider = function (props) {
-  var appStore = props.appStore,
+  var store = props.store,
       children = props.children;
   return React.createElement(exports.DynaDuxContext.Provider, {
-    value: appStore
+    value: store
   }, children);
 };
 
@@ -274,7 +274,7 @@ exports.connect = function (Component, config) {
     });
 
     class_1.prototype.componentWillMount = function () {
-      if (!this.store.provider) console.error("Dynadux connect: Your app store should return the `provider` property also where is returned by the Dynadux's `createStore` is order to be able to connect it. " + "Just add the line `provide: store.provider,` in the return of your appStore. " + "For more read the https://github.com/aneldev/react-dynadux#1-create-an-app-store");
+      if (!this.store.provider) console.error("Dynadux connect: Your store should return the `provider` property also, where, is returned by the Dynadux's `createStore` to be able to connect it. " + "Just add the line `provider: store.provider,` in the return of your business store. " + "For more read the https://github.com/aneldev/react-dynadux#1-create-the-store");
       if (!this.store.provider) return;
       this.store.provider.addChangeEventListener(this.handleStoreChange);
     };
@@ -287,7 +287,7 @@ exports.connect = function (Component, config) {
     class_1.prototype.render = function () {
       var C = Component;
       return React.createElement(C, __assign({
-        appStore: this.context
+        store: this.context
       }, this.props));
     };
 

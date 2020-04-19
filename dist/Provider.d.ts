@@ -1,6 +1,6 @@
 import * as React from "react";
-export interface IProviderProps<TStoreAPI> {
-    appStore: TStoreAPI;
+export interface IProviderProps<TBusinessStore> {
+    store: TBusinessStore;
     children: any;
 }
 export declare const DynaDuxContext: React.Context<any>;
