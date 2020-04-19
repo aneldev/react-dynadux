@@ -1,11 +1,11 @@
-export const debounce = (func: (...args: any[]) => void, debounceMs: undefined | number): () => void => {
+export const debounce = (func: (...args: any[]) => void, timeout: undefined | number): () => void => {
   let lastCalled = 0;
   let timer: any = 0;
   let blocked = false;
   let lastArgs: any[] = [];
 
   return (...args: any[]): any => {
-    if (debounceMs === undefined) {
+    if (timeout === undefined) {
       func(...lastArgs);
       return;
     }
@@ -19,7 +19,7 @@ export const debounce = (func: (...args: any[]) => void, debounceMs: undefined |
           blocked = false;
           func(...lastArgs);
         }
-      }, debounceMs);
+      }, timeout);
       lastCalled = now;
       func(...args);
       return;
