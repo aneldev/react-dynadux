@@ -5,10 +5,13 @@ export const debounce = (func: (...args: any[]) => any, debounceMs: number) => {
   let lastArgs: any[] = [];
 
   return (...args: any[]): any => {
-    const now = Date.now();
+    if (debounceMs === 0) {
+      func(...lastArgs);
+      return;
+    }
 
     if (timer === 0) {
-
+      const now = Date.now();
       timer = setTimeout(() => {
         lastCalled = now;
         timer = 0;
@@ -17,10 +20,8 @@ export const debounce = (func: (...args: any[]) => any, debounceMs: number) => {
           func(...lastArgs);
         }
       }, debounceMs);
-
       lastCalled = now;
       func(...args);
-
       return;
     }
 
