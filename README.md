@@ -1,4 +1,4 @@
-# About
+# React Denadux
 
 React Provider for [Dynadux](https://github.com/aneldev/dynadux#readme)'s stores.
 
@@ -9,8 +9,10 @@ This package offers
 
 With Provider, we can connect any component at any level without the need to pass the App Store reference in middle components.
 
-`connect` offers a the `shouldComponentUpdate` callback where you can return according to the dispatched `action` and `payload` if the component should render or not.
-In this way we can **block render** of the component by the dispatched `action` and/or `payload`.
+`connect` offers the `shouldComponentUpdate` callback where you can return according to the dispatched `action` and `payload` if the component should render or not.
+In this way, we can **block render** of the component by the dispatched `action` and/or `payload`.
+
+It also provides the `debounce.timeout` to debounce intensive renderings.
 
 _New to Dynadux? Learn it [here](https://github.com/aneldev/dynadux#readme)_
 
@@ -20,7 +22,7 @@ _New to Dynadux? Learn it [here](https://github.com/aneldev/dynadux#readme)_
 - `yarn`
 - `yarn start`
 
-Check debugger's console which components rendered on each disparch.
+Check debugger's console, which components rendered on each dispatch.
 
 From 
 
@@ -120,25 +122,38 @@ In the root of the App or in a nested component we
 - create the `appStore`, calling the previous `createAppStore`
 - wrap the components with the `<Provider>` with `appStore` the created `appStore`
 
-#### 4. Block component render (optional)
+# Optimization
 
-The `ToDosComponent` will be rendered on each store's `dispatch`.
+Both `debounce` and `shouldComponentUpdate` would be used together.
 
-This is not optimal, especially if the dispatched action has nothing to do with this component.
+## Debounce renders
 
-`connect` offers and 2nd argument a small config object. Currently, only the `shouldComponentUpdate` callback is part of this config object.
+We can optimize the connected component debouncing the intensive renders.
+
+```
+const ToDosComponent = (props) => {...}
+
+export const ToDos = connect(
+  ToDosComponent,
+  { debouce: { timeout: 60 } },
+);
+
+```
+
+[![React Dynadux Debounce example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-dynadux-debounce-example-jxdy4?fontsize=14&hidenavigation=1&theme=dark)
+
+This connection makes the component to be rendered every 60ms on intensive changes. The component is always rendered on the leading edge of the timeout.
+
+## Block component renders by action/payload
 
 We can block the render by `action` and/or `payload` like this:
 
 ```
-
-const ToDosComponent = (props) => {
-  ...
-}
+const ToDosComponent = (props) => {...}
 
 export const ToDos = connect(
   ToDosComponent,
-  { shouldComponentUpdate: (action, payload) => action.startsWith('TD__') },
+  {shouldComponentUpdate: (action, payload) => action.startsWith('TD__')},
 );
 
 ```
@@ -201,7 +216,8 @@ Signature
 const connect = (
   Component: React.Component, 
   config?: {
-    shouldComponentUpdate?: (action: string, payload?: any) => boolean
+    shouldComponentUpdate?: (action: string, payload?: any) => boolean;
+    debounce?: {timeout: number},
    }
 ): React.Component;
 
@@ -213,3 +229,6 @@ The 2nd argument is optional and is a config object.
 
 The `shouldComponentUpdate` is a callback that will be called on each dispatch of the appStore. 
 The callback is called with two arguments, the dispatched `action` and `payload`, and the callback should always return a boolean if the component should render or not.
+
+With the `debounce` it debounces the intensive renders.
+ 

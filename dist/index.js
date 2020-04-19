@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"));
+		module.exports = factory(require("dyna-debounce"), require("react"));
 	else if(typeof define === 'function' && define.amd)
-		define("react-dynadux", ["react"], factory);
+		define("react-dynadux", ["dyna-debounce", "react"], factory);
 	else if(typeof exports === 'object')
-		exports["react-dynadux"] = factory(require("react"));
+		exports["react-dynadux"] = factory(require("dyna-debounce"), require("react"));
 	else
-		root["react-dynadux"] = factory(root["react"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE_react__) {
+		root["react-dynadux"] = factory(root["dyna-debounce"], root["react"]);
+})(window, function(__WEBPACK_EXTERNAL_MODULE_dyna_debounce__, __WEBPACK_EXTERNAL_MODULE_react__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -235,6 +235,8 @@ var React = __webpack_require__(/*! react */ "react");
 
 var Provider_1 = __webpack_require__(/*! ./Provider */ "./src/Provider.tsx");
 
+var debounce_1 = __webpack_require__(/*! ./debounce */ "./src/debounce.ts");
+
 exports.connect = function (Component, config) {
   if (config === void 0) {
     config = {};
@@ -247,14 +249,19 @@ exports.connect = function (Component, config) {
   function (_super) {
     __extends(class_1, _super);
 
-    function class_1() {
-      var _this = _super !== null && _super.apply(this, arguments) || this;
+    function class_1(props, context) {
+      var _this = _super.call(this, props, context) || this;
 
       _this.handleStoreChange = function (state, action, payload) {
         var shouldUpdate = !shouldComponentUpdate || shouldComponentUpdate(action, payload);
-        if (shouldUpdate) _this.forceUpdate();
+        if (shouldUpdate) _this.callForceUpdate();
       };
 
+      _this.callForceUpdate = function () {
+        _this.forceUpdate();
+      };
+
+      if (config.debounce) _this.callForceUpdate = debounce_1.debounce(_this.callForceUpdate, config.debounce.timeout);
       return _this;
     }
 
@@ -267,8 +274,7 @@ exports.connect = function (Component, config) {
     });
 
     class_1.prototype.componentWillMount = function () {
-      if (!this.store.provider) console.error("Dynadux connect: Your app store should return the `provider` property also where is returned by the Dynadux's `createStore` is order to be able to connect it. " + "Just add the line `provide: store.provider,` in the return of your appStore. " + // Todo: Update the readme link
-      "For more read the https://github.com/aneldev/react-dynadux#1-create-an-app-store");
+      if (!this.store.provider) console.error("Dynadux connect: Your app store should return the `provider` property also where is returned by the Dynadux's `createStore` is order to be able to connect it. " + "Just add the line `provide: store.provider,` in the return of your appStore. " + "For more read the https://github.com/aneldev/react-dynadux#1-create-an-app-store");
       if (!this.store.provider) return;
       this.store.provider.addChangeEventListener(this.handleStoreChange);
     };
@@ -315,6 +321,37 @@ exports.connect = function (Component, config) {
 
 /***/ }),
 
+/***/ "./src/debounce.ts":
+/*!*************************!*\
+  !*** ./src/debounce.ts ***!
+  \*************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal["default"].signature : function (a) {
+  return a;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var dyna_debounce_1 = __webpack_require__(/*! dyna-debounce */ "dyna-debounce");
+
+exports.debounce = function (func, timeout) {
+  if (timeout === undefined) return func;
+  return dyna_debounce_1.dynaDebounce(func, timeout, {
+    leading: true,
+    maxWait: timeout
+  });
+};
+
+/***/ }),
+
 /***/ "./src/index.tsx":
 /*!***********************!*\
   !*** ./src/index.tsx ***!
@@ -355,6 +392,18 @@ exports.connect = connect_1.connect;
 
 module.exports = __webpack_require__(/*! /Users/dennisat/dev/dyna/react-dynadux/src/index.tsx */"./src/index.tsx");
 
+
+/***/ }),
+
+/***/ "dyna-debounce":
+/*!********************************!*\
+  !*** external "dyna-debounce" ***!
+  \********************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_dyna_debounce__;
 
 /***/ }),
 
