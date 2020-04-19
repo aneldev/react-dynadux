@@ -1,11 +1,11 @@
-export const debounce = (func: (...args: any[]) => any, debounceMs: number) => {
+export const debounce = (func: (...args: any[]) => void, debounceMs: undefined | number): () => void => {
   let lastCalled = 0;
   let timer: any = 0;
   let blocked = false;
   let lastArgs: any[] = [];
 
   return (...args: any[]): any => {
-    if (debounceMs === 0) {
+    if (debounceMs === undefined) {
       func(...lastArgs);
       return;
     }
@@ -30,6 +30,5 @@ export const debounce = (func: (...args: any[]) => any, debounceMs: number) => {
     if (!blocked) {
       blocked = true;
     }
-
   };
 };
