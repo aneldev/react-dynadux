@@ -27,7 +27,7 @@ export const connect =
     const Wrapper = class extends React.Component {
       constructor(props: any, context: any) {
         super(props, context);
-        if (config.debounce) this.handleStoreChange = debounce(this.handleStoreChange, config.debounce.timeout);
+        if (config.debounce) this.callForceUpdate = debounce(this.callForceUpdate, config.debounce.timeout);
       }
 
       private get store(): { provider?: IStoreProviderAPI<any> } {
@@ -51,7 +51,11 @@ export const connect =
 
       private handleStoreChange = (state: any, action: any, payload: any): void => {
         const shouldUpdate = !shouldComponentUpdate || shouldComponentUpdate(action, payload);
-        if (shouldUpdate) this.forceUpdate();
+        if (shouldUpdate) this.callForceUpdate();
+      };
+
+      private callForceUpdate = (): void => {
+        this.forceUpdate();
       };
 
       public render(): JSX.Element {

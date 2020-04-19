@@ -235,6 +235,8 @@ var React = __webpack_require__(/*! react */ "react");
 
 var Provider_1 = __webpack_require__(/*! ./Provider */ "./src/Provider.tsx");
 
+var debounce_1 = __webpack_require__(/*! ./debounce */ "./src/debounce.ts");
+
 exports.connect = function (Component, config) {
   if (config === void 0) {
     config = {};
@@ -247,14 +249,19 @@ exports.connect = function (Component, config) {
   function (_super) {
     __extends(class_1, _super);
 
-    function class_1() {
-      var _this = _super !== null && _super.apply(this, arguments) || this;
+    function class_1(props, context) {
+      var _this = _super.call(this, props, context) || this;
 
       _this.handleStoreChange = function (state, action, payload) {
         var shouldUpdate = !shouldComponentUpdate || shouldComponentUpdate(action, payload);
-        if (shouldUpdate) _this.forceUpdate();
+        if (shouldUpdate) _this.callForceUpdate();
       };
 
+      _this.callForceUpdate = function () {
+        _this.forceUpdate();
+      };
+
+      if (config.debounce) _this.callForceUpdate = debounce_1.debounce(_this.callForceUpdate, config.debounce.timeout);
       return _this;
     }
 
@@ -267,8 +274,7 @@ exports.connect = function (Component, config) {
     });
 
     class_1.prototype.componentWillMount = function () {
-      if (!this.store.provider) console.error("Dynadux connect: Your app store should return the `provider` property also where is returned by the Dynadux's `createStore` is order to be able to connect it. " + "Just add the line `provide: store.provider,` in the return of your appStore. " + // Todo: Update the readme link
-      "For more read the https://github.com/aneldev/react-dynadux#1-create-an-app-store");
+      if (!this.store.provider) console.error("Dynadux connect: Your app store should return the `provider` property also where is returned by the Dynadux's `createStore` is order to be able to connect it. " + "Just add the line `provide: store.provider,` in the return of your appStore. " + "For more read the https://github.com/aneldev/react-dynadux#1-create-an-app-store");
       if (!this.store.provider) return;
       this.store.provider.addChangeEventListener(this.handleStoreChange);
     };
@@ -312,6 +318,68 @@ exports.connect = function (Component, config) {
   leaveModule && leaveModule(module);
 })();
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "./src/debounce.ts":
+/*!*************************!*\
+  !*** ./src/debounce.ts ***!
+  \*************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal["default"].signature : function (a) {
+  return a;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.debounce = function (func, debounceMs) {
+  var lastCalled = 0;
+  var timer = 0;
+  var blocked = false;
+  var lastArgs = [];
+  return function () {
+    var args = [];
+
+    for (var _i = 0; _i < arguments.length; _i++) {
+      args[_i] = arguments[_i];
+    }
+
+    if (debounceMs === undefined) {
+      func.apply(void 0, lastArgs);
+      return;
+    }
+
+    if (timer === 0) {
+      var now_1 = Date.now();
+      timer = setTimeout(function () {
+        lastCalled = now_1;
+        timer = 0;
+
+        if (blocked) {
+          blocked = false;
+          func.apply(void 0, lastArgs);
+        }
+      }, debounceMs);
+      lastCalled = now_1;
+      func.apply(void 0, args);
+      return;
+    }
+
+    lastArgs = args;
+
+    if (!blocked) {
+      blocked = true;
+    }
+  };
+};
 
 /***/ }),
 
