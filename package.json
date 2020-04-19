@@ -127,5 +127,8 @@
   },
   "jest-junit": {
     "output": "./coverage/junit.xml"
+  },
+  "dyna": {
+    "changeId": "1bcb81b7-1bce630h-32787658816747120"
   }
 }
