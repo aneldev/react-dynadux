@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"));
+		module.exports = factory(require("dyna-debounce"), require("react"));
 	else if(typeof define === 'function' && define.amd)
-		define("react-dynadux", ["react"], factory);
+		define("react-dynadux", ["dyna-debounce", "react"], factory);
 	else if(typeof exports === 'object')
-		exports["react-dynadux"] = factory(require("react"));
+		exports["react-dynadux"] = factory(require("dyna-debounce"), require("react"));
 	else
-		root["react-dynadux"] = factory(root["react"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE_react__) {
+		root["react-dynadux"] = factory(root["dyna-debounce"], root["react"]);
+})(window, function(__WEBPACK_EXTERNAL_MODULE_dyna_debounce__, __WEBPACK_EXTERNAL_MODULE_react__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -340,45 +340,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-exports.debounce = function (func, debounceMs) {
-  var lastCalled = 0;
-  var timer = 0;
-  var blocked = false;
-  var lastArgs = [];
-  return function () {
-    var args = [];
+var dyna_debounce_1 = __webpack_require__(/*! dyna-debounce */ "dyna-debounce");
 
-    for (var _i = 0; _i < arguments.length; _i++) {
-      args[_i] = arguments[_i];
-    }
-
-    if (debounceMs === undefined) {
-      func.apply(void 0, lastArgs);
-      return;
-    }
-
-    if (timer === 0) {
-      var now_1 = Date.now();
-      timer = setTimeout(function () {
-        lastCalled = now_1;
-        timer = 0;
-
-        if (blocked) {
-          blocked = false;
-          func.apply(void 0, lastArgs);
-        }
-      }, debounceMs);
-      lastCalled = now_1;
-      func.apply(void 0, args);
-      return;
-    }
-
-    lastArgs = args;
-
-    if (!blocked) {
-      blocked = true;
-    }
-  };
+exports.debounce = function (func, timeout) {
+  if (timeout === undefined) return func;
+  return dyna_debounce_1.dynaDebounce(func, timeout, {
+    leading: true,
+    maxWait: timeout
+  });
 };
 
 /***/ }),
@@ -423,6 +392,18 @@ exports.connect = connect_1.connect;
 
 module.exports = __webpack_require__(/*! /Users/dennisat/dev/dyna/react-dynadux/src/index.tsx */"./src/index.tsx");
 
+
+/***/ }),
+
+/***/ "dyna-debounce":
+/*!********************************!*\
+  !*** external "dyna-debounce" ***!
+  \********************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_dyna_debounce__;
 
 /***/ }),
 

@@ -1,34 +1,6 @@
+import {dynaDebounce} from "dyna-debounce";
+
 export const debounce = (func: (...args: any[]) => void, timeout: undefined | number): () => void => {
-  let lastCalled = 0;
-  let timer: any = 0;
-  let blocked = false;
-  let lastArgs: any[] = [];
-
-  return (...args: any[]): any => {
-    if (timeout === undefined) {
-      func(...lastArgs);
-      return;
-    }
-
-    if (timer === 0) {
-      const now = Date.now();
-      timer = setTimeout(() => {
-        lastCalled = now;
-        timer = 0;
-        if (blocked) {
-          blocked = false;
-          func(...lastArgs);
-        }
-      }, timeout);
-      lastCalled = now;
-      func(...args);
-      return;
-    }
-
-    lastArgs = args;
-
-    if (!blocked) {
-      blocked = true;
-    }
-  };
+  if (timeout === undefined) return func;
+  return dynaDebounce(func, timeout, {leading: true, maxWait: timeout});
 };

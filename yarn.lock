@@ -3558,6 +3558,13 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
+dyna-debounce@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/dyna-debounce/-/dyna-debounce-2.0.2.tgz#e386f808b0b28e0d07b7cc14c8a955e83522fd32"
+  integrity sha512-GmzEwbEJZhCj9m8XoZWOSi4lpyvDGF01VPky55VrWAlSS2RMd9y8hD8XAVXDI68KScYKRmuMZpkmzNV4nfu08A==
+  dependencies:
+    lodash.debounce "^4.0.8"
+
 dynadux@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/dynadux/-/dynadux-2.2.2.tgz#659ef8625832000f447e322abc1cb334e9e76fbe"
@@ -6639,6 +6646,11 @@ locate-path@^3.0.0:
   dependencies:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
+
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+  integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
 
 lodash.escape@^4.0.1:
   version "4.0.1"
