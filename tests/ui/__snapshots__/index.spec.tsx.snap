@@ -1,12 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Home has expected content with deep render 1`] = `
-<a
-  className="my-button my-button--style-ROUNDED my-button--color-WHITE_BLACK my-button--size-MEDIUM"
-  onClick={[Function]}
->
-  <button>
-    My button
-  </button>
-</a>
-`;
+exports[`Home has expected content with deep render 1`] = `<div />`;

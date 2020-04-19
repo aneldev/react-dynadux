@@ -12,9 +12,7 @@ describe('Home', () => {
 
   it('has expected content with deep render', () => {
     wrapper = enzyme.shallow(
-      (
-        <div/>
-      ),
+      <div/>,
       {}
     );
 
