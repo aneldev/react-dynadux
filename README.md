@@ -5,7 +5,7 @@ React Provider for [Dynadux](https://github.com/aneldev/dynadux#readme)'s stores
 This package offers
 
 - The `<Provider>` that provides the about Application Store into the React's context _and_
-- The `connect` method that injects your Application Store as `appStore` prop into any component.
+- The `connect` method that injects your Application Store as `store` prop into any component.
 
 With Provider, we can connect any component at any level without the need to pass the App Store reference in middle components.
 
@@ -30,7 +30,7 @@ Demo code is under `/dev` folder.
 
 # Usage
 
-#### 1. Create an app store
+#### 1. Create the store
 
 ```
 import {createStore} from "dynadux";
@@ -40,7 +40,7 @@ const actions = {
   REMOVE_TODO: 'TD__REMOVE_TODO',
 };
 
-const createAppStore = () => {
+const createStore = () => {
     const store = createStore({
         initialState: {
             todos: [],
@@ -72,7 +72,7 @@ const createAppStore = () => {
 
 **Notice** that in the return of the store, we also return the `provider` property where is returned by Dynadux's `createStore`. 
 
-#### 2. Connect any component at any level with the appStore
+#### 2. Connect any component at any level with the store
 
 ```
 import {connect} from "react-dynadux";
@@ -93,21 +93,21 @@ export const ToDos = connect(ToDosComponent);
 
 The exported `ToDos` is a HOC version of the `ToDosComponent`.
 
-Connection injects the App Store that is passed the `<Provider>` as the `appStore` prop.
+Connection injects the App Store that is passed the `<Provider>` as the `store` prop.
 
 #### 3. Provide the store in a root component
 
 ```
 import {Provider} from "react-dynadux";
 
-import {createAppStore} from "./store/createAppStore";
+import {createStore} from "./store/createStore";
 
 export class App extends React.Component {
-  private readonly appStore = createAppStore();
+  private readonly store = createStore();
 
   public render() {
     return (
-      <Provider appStore={this.appStore}>
+      <Provider store={this.store}>
         <div className={classes.root}>
           <ToDos/>
         </div>
@@ -119,8 +119,8 @@ export class App extends React.Component {
 ```
 
 In the root of the App or in a nested component we 
-- create the `appStore`, calling the previous `createAppStore`
-- wrap the components with the `<Provider>` with `appStore` the created `appStore`
+- create the `store`, calling the previous `createStore`
+- wrap the components with the `<Provider>` passing the store
 
 # Optimization
 
@@ -167,7 +167,7 @@ You can implement your logic when the component should be rendered or not by `ac
 
 # `<Provider>`
 
-React component with only one prop, the `appStore`.
+React component with only one prop, the `store`.
 
 App store can be any object. The only obligation is that it should have the `provider` property that is provided from the Dynadux's `createStore()` return.
 
@@ -176,7 +176,7 @@ Example
 ```
 import {createStore} from "dynadux";
 
-const createAppStore = () => {
+const createStore = () => {
   const store = createStore({
     initialState: {...},
     reducers: {...},
@@ -192,15 +192,15 @@ const createAppStore = () => {
 };
 ```
 
-Now the `appStore` can be used in the Provider.
+Now let's create an `store` and pass it to the Provider.
 
 ```
 export class App extends React.Component {
-  private readonly appStore = createAppStore();
+  private readonly store = createStore();
 
   public render() {
     return (
-      <Provider appStore={this.appStore}>
+      <Provider store={this.store}>
         // nested components
       </Provider>
     );
@@ -217,18 +217,21 @@ const connect = (
   Component: React.Component, 
   config?: {
     shouldComponentUpdate?: (action: string, payload?: any) => boolean;
-    debounce?: {timeout: number},
+    debounce?: {timeout: number};
    }
 ): React.Component;
 
 ```
 
-The 1st argument is the `Component` that we want to inject the Provider's `appStore`.
+The 1st argument is the `Component` that we want to inject the Provider's `store`.
 
-The 2nd argument is optional and is a config object. 
+The 2nd argument is optional and is a config object with below optional properties:
 
-The `shouldComponentUpdate` is a callback that will be called on each dispatch of the appStore. 
+#### `shouldComponentUpdate`
+Is a callback that will be called on each dispatch of the `store`. 
+
 The callback is called with two arguments, the dispatched `action` and `payload`, and the callback should always return a boolean if the component should render or not.
+#### `debounce`
+Is config object of one property, the `timeout`.
 
-With the `debounce` it debounces the intensive renders.
- 
+The debounce config blocks changes (renders) within the timeout and applies the latest on the timeout's expiration.

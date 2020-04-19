@@ -13,13 +13,13 @@ const styleRoot: CSSProperties = {
 };
 
 export class App extends React.Component {
-  private readonly appStore = createAppStore();
+  private readonly store = createAppStore();
   private readonly appIcon = <i className="fas fa-gem"/>;
 
   public render(): JSX.Element {
     console.log('#### Main App Render');
     return (
-      <Provider appStore={this.appStore}>
+      <Provider store={this.store}>
         <div style={styleRoot}>
           <LoginBar appIcon={this.appIcon}/>
           <ColorPicker/>

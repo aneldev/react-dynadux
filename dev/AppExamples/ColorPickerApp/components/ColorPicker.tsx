@@ -4,18 +4,18 @@ import { IAppStoreApi } from "../store/appStore";
 import { ELogingSectionActions } from "../store/loginSection";
 
 export interface IColorPickerProps {
-  appStore: IAppStoreApi;
+  store: IAppStoreApi;
 }
 
 class ColorPickerComponent extends React.Component<IColorPickerProps> {
   private handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    const {appStore: {color: {actions: {setColor}}}} = this.props;
+    const {store: {color: {actions: {setColor}}}} = this.props;
     setColor(event.target.value);
   };
 
   public render(): JSX.Element | null {
     const {
-      appStore: {
+      store: {
         login: {
           state: {logged},
         },

@@ -13,7 +13,7 @@ export interface IDebounceConfig {
 }
 
 interface IWithStore {
-  appStore: any;
+  store: any;
 }
 
 export const connect =
@@ -36,9 +36,9 @@ export const connect =
 
       public componentWillMount(): void {
         if (!this.store.provider) console.error(
-          "Dynadux connect: Your app store should return the `provider` property also where is returned by the Dynadux's `createStore` is order to be able to connect it. " +
-          "Just add the line `provide: store.provider,` in the return of your appStore. " +
-          "For more read the https://github.com/aneldev/react-dynadux#1-create-an-app-store"
+          "Dynadux connect: Your store should return the `provider` property also, where, is returned by the Dynadux's `createStore` to be able to connect it. " +
+          "Just add the line `provider: store.provider,` in the return of your business store. " +
+          "For more read the https://github.com/aneldev/react-dynadux#1-create-the-store"
         );
         if (!this.store.provider) return;
         this.store.provider.addChangeEventListener(this.handleStoreChange);
@@ -60,7 +60,7 @@ export const connect =
 
       public render(): JSX.Element {
         const C: any = Component;
-        return <C appStore={this.context} {...this.props}/>;
+        return <C store={this.context} {...this.props}/>;
       }
     };
 

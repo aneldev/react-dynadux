@@ -1,7 +1,7 @@
 import * as React from "react";
 
-export interface IProviderProps<TStoreAPI> {
-  appStore: TStoreAPI;
+export interface IProviderProps<TBusinessStore> {
+  store: TBusinessStore;
   children: any;
 }
 
@@ -11,11 +11,11 @@ DynaDuxContext.displayName = "DynaduxContext";
 export const Provider =
   <TStoreAPI, >(props: IProviderProps<TStoreAPI>) => {
     const {
-      appStore,
+      store,
       children,
     } = props;
     return (
-      <DynaDuxContext.Provider value={appStore}>
+      <DynaDuxContext.Provider value={store}>
         {children}
       </DynaDuxContext.Provider>
     );

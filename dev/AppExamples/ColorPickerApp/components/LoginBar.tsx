@@ -6,7 +6,7 @@ import { connect } from "../../../../src";
 import { IAppStoreApi } from "../store/appStore";
 
 export interface ILoginBarProps {
-  appStore: IAppStoreApi;
+  store: IAppStoreApi;
   appIcon: JSX.Element;
 }
 
@@ -37,7 +37,7 @@ const LoginBarComponent = (props: ILoginBarProps): JSX.Element => {
       login,
       logout,
     },
-  } = props.appStore.login;
+  } = props.store.login;
 
   console.log('#### LoginBar Render');
 
