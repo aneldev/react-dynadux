@@ -16,9 +16,7 @@ It also provides the `debounce.timeout` to debounce intensive renderings.
 
 _New to Dynadux? Learn it [here](https://github.com/aneldev/dynadux#readme)_
 
-# Demo
-
-[![Edit React Dynadux example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-dynadux-debounce-example-rzp8r?fontsize=14&hidenavigation=1&theme=dark)
+[![Live Demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-dynadux-debounce-example-rzp8r?fontsize=14&hidenavigation=1&theme=dark)
 
 # Usage
 
@@ -155,6 +153,24 @@ This connection makes the component to render only if the action is starting wit
 You can implement your logic when the component should be rendered or not by `action` name or `payload`'s content.
   
 [![shoundComponentUpdate Live Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-dynadux-debounce-example-rzp8r?fontsize=14&hidenavigation=1&theme=dark)
+
+# Smaller Stores and Provider
+
+The `<Provider>` can work with any store/model/business stores. The only obligation is that you have to pass the `provider` property of `createStore` of Dynadux.
+
+That means that we can create smaller stores by merely creating a small object that has the `provider` property. 
+
+We don't have to use anything from Dynadux. Just create a Business Store (like a business model and logic) with getters/setters and methods that are using the resources of another Store and add the `provider` of Dynadux.
+
+Then pass this new store in the `<Provider>`. 
+
+Checkout this example:
+
+[![Edit React Dynadux example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-dynadux-example-6cy90?fontsize=14&hidenavigation=1&theme=dark) 
+
+- Here in the constructor of the App, we create the `loginStore`. This creation would be done at any level of the application.
+
+- The pass the new smaller store to the `<Provider>` of the components that expect this store.
 
 # API
 
