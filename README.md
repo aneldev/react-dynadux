@@ -1,4 +1,4 @@
-# React Denadux
+# React Dynadux
 
 React Provider for [Dynadux](https://github.com/aneldev/dynadux#readme)'s stores.
 
