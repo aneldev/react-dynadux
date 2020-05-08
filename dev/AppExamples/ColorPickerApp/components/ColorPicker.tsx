@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "../../../../src";
 import { IAppStoreApi } from "../store/appStore";
-import { ELogingSectionActions } from "../store/loginSection";
+import { ELoginSectionActions } from "../store/loginSection";
 
 export interface IColorPickerProps {
   store: IAppStoreApi;
@@ -53,6 +53,6 @@ export const ColorPicker = connect(
   {
     shouldComponentUpdate: (action, payload) =>
       action.startsWith('CL__')
-      || action === ELogingSectionActions.LOGIN_STATE_CHANGED
+      || action === ELoginSectionActions.ON_LOGIN_STATE_CHANGE
   },
 );

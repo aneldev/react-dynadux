@@ -6,11 +6,11 @@ export interface ILoginSectionState {
   userDisplayName: string;
 }
 
-export enum ELogingSectionActions {
+export enum ELoginSectionActions {
   LOGIN_REQUEST = 'LG__LOGIN_REQUEST',    // ILOGIN_REQUEST_payload
   LOGIN_RESPONSE = 'LG__LOGIN_RESPONSE',
   LOG_OUT = 'LG__LOG_OUT',
-  LOGIN_STATE_CHANGED = 'LG__LOGIN_STATE_CHANGED',
+  ON_LOGIN_STATE_CHANGE = 'LG__ON_LOGIN_STATE_CHANGE',
 }
 
 export interface ILOGIN_REQUEST_payload {
@@ -32,33 +32,34 @@ export const createLoginSection = (store: ICreateStoreAPI) => {
       userDisplayName: '',
     },
     reducers: {
-      [ELogingSectionActions.LOGIN_REQUEST]: ({payload, dispatch}) => {
+      [ELoginSectionActions.LOGIN_REQUEST]: ({payload, dispatch}) => {
         (async () => {
           const {loginName, psw}: ILOGIN_REQUEST_payload = payload;
           await new Promise(r => setTimeout(r, 300)); // Simulate network latency
-          dispatch<ILOGIN_RESPONSE_payload>(ELogingSectionActions.LOGIN_RESPONSE, {logged: true, userDisplayName: 'John Smith'});
+          dispatch<ILOGIN_RESPONSE_payload>(ELoginSectionActions.LOGIN_RESPONSE, {logged: true, userDisplayName: 'John Smith'});
         })();
 
         return {
           isLoading: true,
         };
       },
-      [ELogingSectionActions.LOGIN_RESPONSE]: ({payload, dispatch}) => {
+      [ELoginSectionActions.LOGIN_RESPONSE]: ({payload, dispatch}) => {
         const {logged, userDisplayName}: ILOGIN_RESPONSE_payload = payload;
-        dispatch(ELogingSectionActions.LOGIN_STATE_CHANGED);
+        dispatch(ELoginSectionActions.ON_LOGIN_STATE_CHANGE);
         return {
           isLoading: false,
           logged,
           userDisplayName,
         };
       },
-      [ELogingSectionActions.LOG_OUT]: ({dispatch}) => {
-        dispatch(ELogingSectionActions.LOGIN_STATE_CHANGED);
+      [ELoginSectionActions.LOG_OUT]: ({dispatch}) => {
+        dispatch(ELoginSectionActions.ON_LOGIN_STATE_CHANGE);
         return {
           logged: false,
           userDisplayName: '',
         };
       },
+      [ELoginSectionActions.ON_LOGIN_STATE_CHANGE]: () => ({}),
     }
   });
 
@@ -67,8 +68,8 @@ export const createLoginSection = (store: ICreateStoreAPI) => {
       return section.state;
     },
     actions: {
-      login: (loginName: string, psw: string): void => section.dispatch<ILOGIN_REQUEST_payload>(ELogingSectionActions.LOGIN_REQUEST, {loginName, psw}),
-      logout: (): void => section.dispatch<void>(ELogingSectionActions.LOG_OUT),
+      login: (loginName: string, psw: string): void => section.dispatch<ILOGIN_REQUEST_payload>(ELoginSectionActions.LOGIN_REQUEST, {loginName, psw}),
+      logout: (): void => section.dispatch<void>(ELoginSectionActions.LOG_OUT),
     },
   };
 };

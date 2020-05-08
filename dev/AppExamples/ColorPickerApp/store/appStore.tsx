@@ -5,7 +5,7 @@ import {
 
 import {
   createLoginSection,
-  ELogingSectionActions,
+  ELoginSectionActions,
 } from "./loginSection";
 
 import {
@@ -22,7 +22,7 @@ export const createAppStore = () => {
     ],
     onChange: (state, action, payload) => {
       // On Logout, reset the color.
-      if (action === ELogingSectionActions.LOG_OUT) appStore.color.actions.reset();
+      if (action === ELoginSectionActions.LOG_OUT) appStore.color.actions.reset();
     },
   });
 
