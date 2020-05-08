@@ -85,6 +85,9 @@ The exported `ToDos` is a HOC version of the `ToDosComponent`.
 
 Connection injects the App Store that is passed the `<Provider>` as the `store` prop.
 
+> Tip: Here also we have and the `this.props.dynaduxStore` that offers the `state` getter and the `dispatch` method. 
+> It is not recommended to `dispatch` from components (since we have sophisticated Business Stores), but it is needed when you create 3rd party Components that using the store. 
+
 #### 3. Provide the store in a root component
 
 ```
@@ -174,7 +177,7 @@ Checkout this example:
 
 # API
 
-# `<Provider>`
+# `<Provider>` component
 
 React component with only one prop, the `store`.
 
@@ -216,9 +219,23 @@ export class App extends React.Component {
 }
 ```
 
-# `connect`
+# `connect` method
 
-Signature
+## What is doing
+
+Use `connect` to connect any component with the closer `<Provider>`.
+
+The `connect` will inject two properties in the props of the component:
+- `store` is the store that you passed with the `<Provider>` _and_
+- `dynaduxStore` is the store created by the `createStore` method
+
+The `store` is your Business Store where encapsulates the dynadux store.
+
+The `dynaduxStore` is the return of the `createStore`, and it has the `state` getter and the `dispatch` method.
+
+With `dynaduxStore` you can dispatch an action. It is not recommended to dispatch actions, but this is needed when you create 3rd party libraries.
+
+## Signature
 
 ```
 const connect = (
@@ -244,3 +261,4 @@ The callback is called with two arguments, the dispatched `action` and `payload`
 Is config object of one property, the `timeout`.
 
 The debounce config blocks changes (renders) within the timeout and applies the latest on the timeout's expiration.
+

@@ -1,7 +1,7 @@
 import * as React from "react";
-import { IStoreProviderAPI } from "dynadux/dist/commonJs/createStore/createStore";
 import { DynaDuxContext } from "./Provider";
 import { debounce } from "./debounce";
+import { IStoreProviderAPI } from "dynadux/dist/commonJs/create/createStore";
 
 export interface IConnectConfig {
   shouldComponentUpdate?: (action: string, payload?: any) => boolean;
@@ -14,6 +14,7 @@ export interface IDebounceConfig {
 
 interface IWithStore {
   store: any;
+  dynaduxStore: any;
 }
 
 export const connect =
@@ -60,7 +61,13 @@ export const connect =
 
       public render(): JSX.Element {
         const C: any = Component;
-        return <C store={this.context} {...this.props}/>;
+        return (
+          <C
+            store={this.context}
+            dynaduxStore={this.context.provider.store}
+            {...this.props}
+          />
+        );
       }
     };
 
