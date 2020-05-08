@@ -287,7 +287,8 @@ exports.connect = function (Component, config) {
     class_1.prototype.render = function () {
       var C = Component;
       return React.createElement(C, __assign({
-        store: this.context
+        store: this.context,
+        dynaduxStore: this.context.provider.store
       }, this.props));
     };
 
