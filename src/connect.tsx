@@ -35,7 +35,7 @@ export const connect =
         return this.context;
       }
 
-      public componentWillMount(): void {
+      public componentDidMount() {
         if (!this.store.provider) console.error(
           "Dynadux connect: Your store should return the `provider` property also, where, is returned by the Dynadux's `createStore` to be able to connect it. " +
           "Just add the line `provider: store.provider,` in the return of your business store. " +
