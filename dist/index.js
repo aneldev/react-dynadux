@@ -273,7 +273,7 @@ exports.connect = function (Component, config) {
       configurable: true
     });
 
-    class_1.prototype.componentWillMount = function () {
+    class_1.prototype.componentDidMount = function () {
       if (!this.store.provider) console.error("Dynadux connect: Your store should return the `provider` property also, where, is returned by the Dynadux's `createStore` to be able to connect it. " + "Just add the line `provider: store.provider,` in the return of your business store. " + "For more read the https://github.com/aneldev/react-dynadux#1-create-the-store");
       if (!this.store.provider) return;
       this.store.provider.addChangeEventListener(this.handleStoreChange);
