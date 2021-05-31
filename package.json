@@ -1,6 +1,6 @@
 {
   "name": "react-dynadux",
-  "version": "2.1.2",
+  "version": "3.0.0",
   "description": "React Provider for Dynadux stores",
   "repository": {
     "type": "git",
@@ -35,7 +35,10 @@
     "release": "yarn test && yarn run build && git add -u && git add -A && git commit --allow-empty -m \"Build changes\" && yarn version --patch && yarn run publish-push",
     "upgrade-release": "yarn upgrade && yarn run release"
   },
-  "keywords": ["react", "dynadux"],
+  "keywords": [
+    "react",
+    "dynadux"
+  ],
   "author": "Anel dev",
   "license": "MIT",
   "dependencies": {
