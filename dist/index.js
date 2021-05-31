@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("dyna-debounce"), require("react"));
+		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("react-dynadux", ["dyna-debounce", "react"], factory);
+		define("react-dynadux", [], factory);
 	else if(typeof exports === 'object')
-		exports["react-dynadux"] = factory(require("dyna-debounce"), require("react"));
+		exports["react-dynadux"] = factory();
 	else
-		root["react-dynadux"] = factory(root["dyna-debounce"], root["react"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE_dyna_debounce__, __WEBPACK_EXTERNAL_MODULE_react__) {
+		root["react-dynadux"] = factory();
+})(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -140,7 +140,12 @@ module.exports = function (module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(module) {
 
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
 
 var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal["default"].signature : function (a) {
   return a;
@@ -149,19 +154,41 @@ var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoader
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Provider = exports.DynaDuxContext = void 0;
 
 var React = __webpack_require__(/*! react */ "react");
 
 exports.DynaDuxContext = React.createContext(null);
 exports.DynaDuxContext.displayName = "DynaduxContext";
 
-exports.Provider = function (props) {
+var Provider = function Provider(props) {
   var store = props.store,
       children = props.children;
   return React.createElement(exports.DynaDuxContext.Provider, {
     value: store
   }, children);
 };
+
+exports.Provider = Provider;
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(Provider, "Provider", "/Users/dennisat/dev/dyna/react-dynadux/src/Provider.tsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
 
 /***/ }),
 
@@ -193,7 +220,7 @@ var __extends = this && this.__extends || function () {
       d.__proto__ = b;
     } || function (d, b) {
       for (var p in b) {
-        if (b.hasOwnProperty(p)) d[p] = b[p];
+        if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
       }
     };
 
@@ -201,6 +228,8 @@ var __extends = this && this.__extends || function () {
   };
 
   return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+
     _extendStatics(d, b);
 
     function __() {
@@ -230,6 +259,7 @@ var __assign = this && this.__assign || function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.connect = void 0;
 
 var React = __webpack_require__(/*! react */ "react");
 
@@ -237,7 +267,7 @@ var Provider_1 = __webpack_require__(/*! ./Provider */ "./src/Provider.tsx");
 
 var debounce_1 = __webpack_require__(/*! ./debounce */ "./src/debounce.ts");
 
-exports.connect = function (Component, config) {
+var connect = function connect(Component, config) {
   if (config === void 0) {
     config = {};
   }
@@ -253,6 +283,8 @@ exports.connect = function (Component, config) {
       var _this = _super.call(this, props, context) || this;
 
       _this.handleStoreChange = function (state, action, payload) {
+        state; // 4TS
+
         var shouldUpdate = !shouldComponentUpdate || shouldComponentUpdate(action, payload);
         if (shouldUpdate) _this.callForceUpdate();
       };
@@ -269,7 +301,7 @@ exports.connect = function (Component, config) {
       get: function get() {
         return this.context;
       },
-      enumerable: true,
+      enumerable: false,
       configurable: true
     });
 
@@ -299,6 +331,7 @@ exports.connect = function (Component, config) {
   return Wrapper;
 };
 
+exports.connect = connect;
 ;
 
 (function () {
@@ -310,6 +343,7 @@ exports.connect = function (Component, config) {
 
   reactHotLoader.register(__extends, "__extends", "/Users/dennisat/dev/dyna/react-dynadux/src/connect.tsx");
   reactHotLoader.register(__assign, "__assign", "/Users/dennisat/dev/dyna/react-dynadux/src/connect.tsx");
+  reactHotLoader.register(connect, "connect", "/Users/dennisat/dev/dyna/react-dynadux/src/connect.tsx");
 })();
 
 ;
@@ -331,7 +365,12 @@ exports.connect = function (Component, config) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(module) {
 
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
 
 var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal["default"].signature : function (a) {
   return a;
@@ -340,16 +379,38 @@ var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoader
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.debounce = void 0;
 
 var dyna_debounce_1 = __webpack_require__(/*! dyna-debounce */ "dyna-debounce");
 
-exports.debounce = function (func, timeout) {
+var debounce = function debounce(func, timeout) {
   if (timeout === undefined) return func;
   return dyna_debounce_1.dynaDebounce(func, timeout, {
     leading: true,
     maxWait: timeout
   });
 };
+
+exports.debounce = debounce;
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(debounce, "debounce", "/Users/dennisat/dev/dyna/react-dynadux/src/debounce.ts");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
 
 /***/ }),
 
@@ -371,15 +432,31 @@ var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoader
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.connect = exports.DynaDuxContext = exports.Provider = void 0;
 
 var Provider_1 = __webpack_require__(/*! ./Provider */ "./src/Provider.tsx");
 
-exports.Provider = Provider_1.Provider;
-exports.DynaDuxContext = Provider_1.DynaDuxContext;
+Object.defineProperty(exports, "Provider", {
+  enumerable: true,
+  get: function get() {
+    return Provider_1.Provider;
+  }
+});
+Object.defineProperty(exports, "DynaDuxContext", {
+  enumerable: true,
+  get: function get() {
+    return Provider_1.DynaDuxContext;
+  }
+});
 
 var connect_1 = __webpack_require__(/*! ./connect */ "./src/connect.tsx");
 
-exports.connect = connect_1.connect;
+Object.defineProperty(exports, "connect", {
+  enumerable: true,
+  get: function get() {
+    return connect_1.connect;
+  }
+});
 
 /***/ }),
 
@@ -404,7 +481,7 @@ module.exports = __webpack_require__(/*! /Users/dennisat/dev/dyna/react-dynadux/
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_dyna_debounce__;
+module.exports = require("dyna-debounce");
 
 /***/ }),
 
@@ -416,7 +493,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_dyna_debounce__;
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_react__;
+module.exports = require("react");
 
 /***/ })
 

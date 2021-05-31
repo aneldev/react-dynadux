@@ -2,6 +2,8 @@
 // help: https://webpack.github.io/docs/webpack-dev-server.html#webpack-dev-server-cli
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const loaders = require('./webpack.loaders');
 const plugins = require('./webpack.plugins');
@@ -12,6 +14,7 @@ console.log('To debug open address: http://localhost:' + serverPort + ' on any b
 console.log('');
 
 const config = {
+  target: "web",
   mode: "development",
   entry: [
     'react-hot-loader/patch',                                 // activate HMR for React
@@ -25,9 +28,29 @@ const config = {
   devtool: "source-map",     // help: https://webpack.js.org/configuration/devtool/
   devServer: {
     hot: true,
+    host: 'localhost',
     port: serverPort,
     publicPath: '/static',
     historyApiFallback: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3222',
+        secure: false
+      },
+    },
+    watchOptions: {
+      poll: true,
+      ignored: /node_modules/,
+    },
+    stats: {
+      colors: true,
+      assets: true,
+      version: false,
+      hash: false,
+      timings: true,
+      chunks: false,
+      chunkModules: false,
+    },
   },
   output: {
     path: path.resolve(__dirname, 'dev/public/static'),
@@ -47,8 +70,10 @@ const config = {
     child_process: "empty",
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),     // enable HMR globally
-    new webpack.NamedModulesPlugin(),             // prints more readable module names in the browser console on HMR updates
+    // new CleanWebpackPlugin(),                    // Disabled, since makes the webpack build to hang on "98% after emitting"
+    new HtmlWebpackPlugin({title: 'Hot Module Replacement'}),
+    // new webpack.HotModuleReplacementPlugin(),    // Enable HMR globally
+    new webpack.NamedModulesPlugin(),               // Prints more readable module names in the browser console on HMR updates
   ].concat(plugins.plugins),
 };
 

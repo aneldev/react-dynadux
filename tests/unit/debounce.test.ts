@@ -30,6 +30,7 @@ describe('Debounce', () => {
     addCounter = debounce(addCounter, timeout);
 
     Array(testCount).fill(null).forEach((v, index) => {
+      v; // 4TS
       setTimeout(addCounter, index * timeout * 10);
     });
 
@@ -48,6 +49,7 @@ describe('Debounce', () => {
     addCounter = debounce(addCounter, timeout);
 
     Array(testCount).fill(null).forEach((v, index) => {
+      v; // 4TS
       setTimeout(addCounter, index * timeout * 10);
     });
 

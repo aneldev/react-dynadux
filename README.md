@@ -262,3 +262,12 @@ Is config object of one property, the `timeout`.
 
 The debounce config blocks changes (renders) within the timeout and applies the latest on the timeout's expiration.
 
+# Change log
+
+## 2.0.0
+
+First version. React 16.
+
+## 3.0.0
+
+React 17.
