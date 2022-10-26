@@ -1,10 +1,9 @@
-import "jest";
-import { debounce } from "../../src/debounce";
+import {debounce} from "../../src/debounce";
 
 const delay = (ms: number): Promise<void> => new Promise(r => setTimeout(r, ms));
 
 describe('Debounce', () => {
-  test('No debounce when is undefined', async (done) => {
+  test('No debounce when is undefined', async () => {
     let counter = 0;
     let addCounter = (): void => {
       counter += 1;
@@ -13,14 +12,14 @@ describe('Debounce', () => {
     const timeout = undefined;
     addCounter = debounce(addCounter, timeout);
 
-    Array(testCount).fill(null).forEach(addCounter);
+    Array(testCount).fill(null)
+      .forEach(addCounter);
 
     await delay(10);
     expect(counter).toBeGreaterThanOrEqual(1);
-    done();
   });
 
-  test('No debounce when is 0', async (done) => {
+  test('No debounce when is 0', async () => {
     let counter = 0;
     let addCounter = (): void => {
       counter += 1;
@@ -29,17 +28,17 @@ describe('Debounce', () => {
     const timeout = 0;
     addCounter = debounce(addCounter, timeout);
 
-    Array(testCount).fill(null).forEach((v, index) => {
-      v; // 4TS
-      setTimeout(addCounter, index * timeout * 10);
-    });
+    Array(testCount).fill(null)
+      .forEach((v, index) => {
+        v; // 4TS
+        setTimeout(addCounter, index * timeout * 10);
+      });
 
     await delay(10);
     expect(counter).toBeGreaterThanOrEqual(1);
-    done();
   });
 
-  test('No debounce when is 1', async (done) => {
+  test('No debounce when is 1', async () => {
     let counter = 0;
     let addCounter = (): void => {
       counter += 1;
@@ -48,17 +47,17 @@ describe('Debounce', () => {
     const timeout = 1;
     addCounter = debounce(addCounter, timeout);
 
-    Array(testCount).fill(null).forEach((v, index) => {
-      v; // 4TS
-      setTimeout(addCounter, index * timeout * 10);
-    });
+    Array(testCount).fill(null)
+      .forEach((v, index) => {
+        v; // 4TS
+        setTimeout(addCounter, index * timeout * 10);
+      });
 
     await delay((testCount * timeout * 10) + 100);
     expect(counter).toBe(testCount);
-    done();
   });
 
-  test('It debounce when is needed', async (done) => {
+  test('It debounce when is needed', async () => {
     let counter = 0;
     let addCounter = (value: number): void => {
       counter += value;
@@ -70,11 +69,9 @@ describe('Debounce', () => {
     addCounter(1);
 
     expect(counter).toBe(2);
-    done();
-
   });
 
-  test('It debounces', async (done) => {
+  test('It debounces', async () => {
     let counter = 0;
     let addCounter = (value: number): void => {
       counter += value;
@@ -88,11 +85,9 @@ describe('Debounce', () => {
     addCounter(5);
 
     expect(counter).toBe(2 + 4 + 5);
-    done();
-
   });
 
-  test('It debounces in an row', async (done) => {
+  test('It debounces in an row', async () => {
     let counter = 0;
     let addCounter = (value: number): void => {
       counter += value;
@@ -109,7 +104,5 @@ describe('Debounce', () => {
     await delay(110);
 
     expect(counter).toBe(2 + 4 + 5 + 7);
-    done();
-
   });
 });

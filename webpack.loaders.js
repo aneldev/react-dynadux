@@ -5,16 +5,15 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: [
-          'babel-loader',
-        ],
+        loader: 'babel-loader',
+        exclude: /node_modules/,
       },
       {
         // typescript loader
         test: /\.(tsx|ts)$/,
         use: [
           'babel-loader',
-          'awesome-typescript-loader',
+          'ts-loader',
         ],
       },
       {	// css loader
@@ -69,13 +68,13 @@ module.exports = {
             options: {
               plugins: function () {
                 return [
-                  require('autoprefixer')
+                  require('autoprefixer'),
                 ];
-              }
-            }
+              },
+            },
           },
-          'less-loader'
-        ]
+          'less-loader',
+        ],
       },
       {
         test: /\.module.scss$/,
@@ -125,19 +124,19 @@ module.exports = {
             options: {
               plugins: function () {
                 return [
-                  require('autoprefixer')
+                  require('autoprefixer'),
                 ];
-              }
-            }
+              },
+            },
           },
-          'sass-loader'
-        ]
+          'sass-loader',
+        ],
       },
       {
         // inline images load (loads the url() defined in the css)
         // help: https://christianalfoni.github.io/react-webpack-cookbook/Inlining-images.html
         test: /\.(png|jpg|gif)$/,
-        loader: 'url-loader?limit=100000'
+        loader: 'url-loader?limit=100000',
       },
       {
         test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
@@ -165,8 +164,8 @@ module.exports = {
       //   },
       // },
       {
-        test: /\.svg$/, loader: 'svg-inline-loader'
+        test: /\.svg$/, loader: 'svg-inline-loader',
       },
-    ]
-  }
+    ],
+  },
 };
