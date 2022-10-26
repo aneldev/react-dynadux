@@ -1,7 +1,7 @@
 import * as React from "react";
-import { DynaDuxContext } from "./Provider";
-import { debounce } from "./debounce";
-import { IStoreProviderAPI } from "dynadux/dist/commonJs/create/createStore";
+import {DynaDuxContext} from "./Provider";
+import {debounce} from "./debounce";
+import {IStoreProviderAPI} from "dynadux/dist/commonJs/create/createStore";
 
 export interface IConnectConfig {
   shouldComponentUpdate?: (action: string, payload?: any) => boolean;
@@ -22,10 +22,10 @@ export const connect =
     Component: React.ComponentType<TProps>,
     config: IConnectConfig = {},
   ): React.ComponentType<Omit<TProps, keyof IWithStore>> => {
-    const {
-      shouldComponentUpdate,
-    } = config;
+    const {shouldComponentUpdate} = config;
     const Wrapper = class extends React.Component {
+      private isMount = false;
+
       constructor(props: any, context: any) {
         super(props, context);
         if (config.debounce) this.callForceUpdate = debounce(this.callForceUpdate, config.debounce.timeout);
@@ -36,16 +36,20 @@ export const connect =
       }
 
       public componentDidMount() {
-        if (!this.store.provider) console.error(
-          "Dynadux connect: Your store should return the `provider` property also, where, is returned by the Dynadux's `createStore` to be able to connect it. " +
+        this.isMount = true;
+        if (!this.store.provider) {
+          console.error(
+            "Dynadux connect: Your store should return the `provider` property also, where, is returned by the Dynadux's `createStore` to be able to connect it. " +
           "Just add the line `provider: store.provider,` in the return of your business store. " +
           "For more read the https://github.com/aneldev/react-dynadux#1-create-the-store",
-        );
+          );
+        }
         if (!this.store.provider) return;
         this.store.provider.addChangeEventListener(this.handleStoreChange);
       }
 
       public componentWillUnmount(): void {
+        this.isMount = false;
         if (!this.store.provider) return;
         this.store.provider.removeChangeEventListener(this.handleStoreChange);
       }
@@ -57,6 +61,7 @@ export const connect =
       };
 
       private callForceUpdate = (): void => {
+        if (!this.isMount) return;
         this.forceUpdate();
       };
 

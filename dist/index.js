@@ -104,30 +104,29 @@ return /******/ (function(modules) { // webpackBootstrap
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = function (module) {
-  if (!module.webpackPolyfill) {
-    module.deprecate = function () {};
-
-    module.paths = []; // module.parent = undefined by default
-
-    if (!module.children) module.children = [];
-    Object.defineProperty(module, "loaded", {
-      enumerable: true,
-      get: function () {
-        return module.l;
-      }
-    });
-    Object.defineProperty(module, "id", {
-      enumerable: true,
-      get: function () {
-        return module.i;
-      }
-    });
-    module.webpackPolyfill = 1;
-  }
-
-  return module;
+module.exports = function(module) {
+	if (!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if (!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
 };
+
 
 /***/ }),
 
@@ -151,12 +150,52 @@ var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoader
   return a;
 };
 
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Provider = exports.DynaDuxContext = void 0;
 
-var React = __webpack_require__(/*! react */ "react");
+var React = __importStar(__webpack_require__(/*! react */ "react"));
 
 exports.DynaDuxContext = React.createContext(null);
 exports.DynaDuxContext.displayName = "DynaduxContext";
@@ -179,6 +218,10 @@ exports.Provider = Provider;
     return;
   }
 
+  reactHotLoader.register(__createBinding, "__createBinding", "/Users/dennisat/dev/dyna/react-dynadux/src/Provider.tsx");
+  reactHotLoader.register(__setModuleDefault, "__setModuleDefault", "/Users/dennisat/dev/dyna/react-dynadux/src/Provider.tsx");
+  reactHotLoader.register(__importStar, "__importStar", "/Users/dennisat/dev/dyna/react-dynadux/src/Provider.tsx");
+  reactHotLoader.register(React, "React", "/Users/dennisat/dev/dyna/react-dynadux/src/Provider.tsx");
   reactHotLoader.register(Provider, "Provider", "/Users/dennisat/dev/dyna/react-dynadux/src/Provider.tsx");
 })();
 
@@ -256,12 +299,52 @@ var __assign = this && this.__assign || function () {
   return __assign.apply(this, arguments);
 };
 
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.connect = void 0;
 
-var React = __webpack_require__(/*! react */ "react");
+var React = __importStar(__webpack_require__(/*! react */ "react"));
 
 var Provider_1 = __webpack_require__(/*! ./Provider */ "./src/Provider.tsx");
 
@@ -282,6 +365,8 @@ var connect = function connect(Component, config) {
     function class_1(props, context) {
       var _this = _super.call(this, props, context) || this;
 
+      _this.isMount = false;
+
       _this.handleStoreChange = function (state, action, payload) {
         state; // 4TS
 
@@ -290,10 +375,12 @@ var connect = function connect(Component, config) {
       };
 
       _this.callForceUpdate = function () {
+        if (!_this.isMount) return;
+
         _this.forceUpdate();
       };
 
-      if (config.debounce) _this.callForceUpdate = debounce_1.debounce(_this.callForceUpdate, config.debounce.timeout);
+      if (config.debounce) _this.callForceUpdate = (0, debounce_1.debounce)(_this.callForceUpdate, config.debounce.timeout);
       return _this;
     }
 
@@ -306,12 +393,14 @@ var connect = function connect(Component, config) {
     });
 
     class_1.prototype.componentDidMount = function () {
+      this.isMount = true;
       if (!this.store.provider) console.error("Dynadux connect: Your store should return the `provider` property also, where, is returned by the Dynadux's `createStore` to be able to connect it. " + "Just add the line `provider: store.provider,` in the return of your business store. " + "For more read the https://github.com/aneldev/react-dynadux#1-create-the-store");
       if (!this.store.provider) return;
       this.store.provider.addChangeEventListener(this.handleStoreChange);
     };
 
     class_1.prototype.componentWillUnmount = function () {
+      this.isMount = false;
       if (!this.store.provider) return;
       this.store.provider.removeChangeEventListener(this.handleStoreChange);
     };
@@ -343,6 +432,10 @@ exports.connect = connect;
 
   reactHotLoader.register(__extends, "__extends", "/Users/dennisat/dev/dyna/react-dynadux/src/connect.tsx");
   reactHotLoader.register(__assign, "__assign", "/Users/dennisat/dev/dyna/react-dynadux/src/connect.tsx");
+  reactHotLoader.register(__createBinding, "__createBinding", "/Users/dennisat/dev/dyna/react-dynadux/src/connect.tsx");
+  reactHotLoader.register(__setModuleDefault, "__setModuleDefault", "/Users/dennisat/dev/dyna/react-dynadux/src/connect.tsx");
+  reactHotLoader.register(__importStar, "__importStar", "/Users/dennisat/dev/dyna/react-dynadux/src/connect.tsx");
+  reactHotLoader.register(React, "React", "/Users/dennisat/dev/dyna/react-dynadux/src/connect.tsx");
   reactHotLoader.register(connect, "connect", "/Users/dennisat/dev/dyna/react-dynadux/src/connect.tsx");
 })();
 
@@ -385,7 +478,7 @@ var dyna_debounce_1 = __webpack_require__(/*! dyna-debounce */ "dyna-debounce");
 
 var debounce = function debounce(func, timeout) {
   if (timeout === undefined) return func;
-  return dyna_debounce_1.dynaDebounce(func, timeout, {
+  return (0, dyna_debounce_1.dynaDebounce)(func, timeout, {
     leading: true,
     maxWait: timeout
   });
