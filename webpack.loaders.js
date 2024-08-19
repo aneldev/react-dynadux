@@ -11,6 +11,7 @@ module.exports = {
       {
         // typescript loader
         test: /\.(tsx|ts)$/,
+        exclude: /node_modules/,
         use: [
           'babel-loader',
           'ts-loader',
@@ -18,10 +19,15 @@ module.exports = {
       },
       {	// css loader
         test: /\.css$/,
-        loader: "style-loader!css-loader",
+        "use": [
+          "style-loader",
+          "css-loader"
+        ],
+        exclude: /node_modules/,
       },
       {
         test: /\.module.less$/,
+        exclude: /node_modules/,
         use: [
           require.resolve('style-loader'),
           {
@@ -60,6 +66,7 @@ module.exports = {
       },
       {
         test: /^((?!\.module).)*less$/,
+        exclude: /node_modules/,
         use: [
           'style-loader',
           'css-loader',
@@ -78,6 +85,7 @@ module.exports = {
       },
       {
         test: /\.module.scss$/,
+        exclude: /node_modules/,
         use: [
           require.resolve('style-loader'),
           {
@@ -116,6 +124,7 @@ module.exports = {
       },
       {
         test: /^((?!\.module).)*scss$/,
+        exclude: /node_modules/,
         use: [
           'style-loader',
           'css-loader',
@@ -136,23 +145,29 @@ module.exports = {
         // inline images load (loads the url() defined in the css)
         // help: https://christianalfoni.github.io/react-webpack-cookbook/Inlining-images.html
         test: /\.(png|jpg|gif)$/,
-        loader: 'url-loader?limit=100000',
+        exclude: /node_modules/,
+        "loader": "url-loader",
+        "options": {
+          "limit": 100000
+        },
       },
       {
         test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+        exclude: /node_modules/,
         loader: 'url-loader',
         options: {
           limit: 50000,
           mimetype: 'application/font-woff',
-          publicPath: '/static/',
+          outputPath: '/static/',
         },
       },
       {
         test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        exclude: /node_modules/,
         loader: 'url-loader',
         options: {
           limit: 50000,
-          publicPath: '/static/',
+          outputPath: '/static/',
         },
       },
       // Alternative way to load fonts, always as links
@@ -164,7 +179,9 @@ module.exports = {
       //   },
       // },
       {
-        test: /\.svg$/, loader: 'svg-inline-loader',
+        test: /\.svg$/,
+        exclude: /node_modules/,
+        loader: 'svg-inline-loader',
       },
     ],
   },

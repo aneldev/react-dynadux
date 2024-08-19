@@ -1,6 +1,5 @@
 ﻿const fs = require('fs');
 const path = require('path');
-const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 
 const isSingleModule =
@@ -22,6 +21,8 @@ const getModuleNames =
 
 const moduleNames = getModuleNames('./src');
 
+process.traceDeprecation = true;
+
 const config = {
   mode: "development",          // distribute it without minification
   target: "web",
@@ -33,7 +34,7 @@ const config = {
           path.resolve(__dirname, 'src/index.tsx')
         ]
       )
-      :(
+      : (
         // Multiple module exports of the /src/<Module name>/index.ts
         moduleNames
           .reduce((acc, entry) => {
@@ -65,7 +66,8 @@ const config = {
         publicPath: '/dist/',
         library: package_.name,
         libraryTarget: 'umd',
-        umdNamedDefine: true
+        umdNamedDefine: true,
+        clean: true,
       }
       : {
         // Multiple module exports of the /src/<Module name>/index.ts
@@ -73,23 +75,16 @@ const config = {
         path: __dirname + '/dist',
         libraryTarget: 'umd',
         umdNamedDefine: true,
+        clean: true,
       },
   resolve: {
     alias: {},
     extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js", ".jsx"]
   },
-  node: {
-    // universal app? place here your conditional imports for node env
-    fs: "empty",
-    path: "empty",
-    child_process: "empty",
-  },
   module: {
     rules: loaders.module.rules,
   },
-  plugins: [
-    new webpack.NamedModulesPlugin(), // prints more readable module names in the browser console on HMR updates
-  ].concat(plugins.plugins),
+  plugins: plugins.plugins,
 };
 
 module.exports = config;

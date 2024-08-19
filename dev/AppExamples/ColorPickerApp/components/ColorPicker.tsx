@@ -51,7 +51,7 @@ class ColorPickerComponent extends React.Component<IColorPickerProps> {
 export const ColorPicker = connect(
   ColorPickerComponent,
   {
-    shouldComponentUpdate: (action, payload) =>
+    shouldComponentUpdate: (action) =>
       action.startsWith('CL__')
       || action === ELoginSectionActions.ON_LOGIN_STATE_CHANGE
   },

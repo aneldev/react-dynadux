@@ -33,8 +33,8 @@ export const createLoginSection = (store: ICreateStoreAPI) => {
     },
     reducers: {
       [ELoginSectionActions.LOGIN_REQUEST]: ({payload, dispatch}) => {
+        payload;
         (async () => {
-          const {loginName, psw}: ILOGIN_REQUEST_payload = payload;
           await new Promise(r => setTimeout(r, 300)); // Simulate network latency
           dispatch<ILOGIN_RESPONSE_payload>(ELoginSectionActions.LOGIN_RESPONSE, {logged: true, userDisplayName: 'John Smith'});
         })();

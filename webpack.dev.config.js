@@ -1,23 +1,26 @@
 ﻿// help: http://webpack.github.io/docs/configuration.html
 // help: https://webpack.github.io/docs/webpack-dev-server.html#webpack-dev-server-cli
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const loaders = require('./webpack.loaders');
 const plugins = require('./webpack.plugins');
 
 const serverPort = Number(process.argv[process.argv.length - 1]);
 
-console.log('To debug open address: http://localhost:' + serverPort + ' on any browser');
+console.log('To dev open address: http://localhost:' + serverPort + ' on any browser');
 console.log('');
 
+process.traceDeprecation = true;
+
+/**
+ * @type {import('webpack').Configuration}
+ */
 const config = {
   target: "web",
   mode: "development",
   entry: [
-    'react-hot-loader/patch',                                 // activate HMR for React
     'webpack-dev-server/client?http://localhost:'+serverPort, // bundle the client for webpack-dev-server and connect to the provided endpoint
     'webpack/hot/only-dev-server',                            // bundle the client for hot reloading, only- means to only hot reload for successful updates
     path.resolve(__dirname, 'dev/index.tsx'),
@@ -30,27 +33,23 @@ const config = {
     hot: true,
     host: 'localhost',
     port: serverPort,
-    publicPath: '/static',
     historyApiFallback: true,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3222',
-        secure: false
+    proxy: [
+      {
+        context: ["/api"],
+        target: "http://localhost:3222",
+        secure: false,
+        logLevel: "info"
       },
+    ],
+    devMiddleware: {
+      publicPath: "/",
+      writeToDisk: true,  // Writes files to disk (optional)
     },
-    watchOptions: {
-      poll: true,
-      ignored: /node_modules/,
-    },
-    stats: {
-      colors: true,
-      assets: true,
-      version: false,
-      hash: false,
-      timings: true,
-      chunks: false,
-      chunkModules: false,
-    },
+  },
+  watchOptions: {
+    poll: true,
+    ignored: /node_modules/,
   },
   output: {
     path: path.resolve(__dirname, 'dev/public/static'),
@@ -63,17 +62,12 @@ const config = {
   module: {
     rules: loaders.module.rules,
   },
-  node: {
-    // universal app? place here your conditional imports for node env
-    fs: "empty",
-    path: "empty",
-    child_process: "empty",
-  },
   plugins: [
-    // new CleanWebpackPlugin(),                    // Disabled, since makes the webpack build to hang on "98% after emitting"
-    new HtmlWebpackPlugin({title: 'Hot Module Replacement'}),
-    // new webpack.HotModuleReplacementPlugin(),    // Enable HMR globally
-    new webpack.NamedModulesPlugin(),               // Prints more readable module names in the browser console on HMR updates
+    new HtmlWebpackPlugin({
+      title: 'Hot Module Replacement',
+      template: path.resolve(__dirname, 'dev/public/index.html'),
+    }),
+    new ReactRefreshWebpackPlugin(),
   ].concat(plugins.plugins),
 };
 

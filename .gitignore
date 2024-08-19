@@ -1,5 +1,6 @@
 .git/
 .idea/
+dev/public/static
 coverage/
 node_modules/
 temp/

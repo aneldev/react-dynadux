@@ -1,7 +1,9 @@
 import * as React from "react";
 import { CSSProperties } from "react";
 
-import { connect } from "../../../../src";
+import {
+  connect,
+} from "../../../../src";
 
 import { IAppStoreApi } from "../store/appStore";
 
@@ -69,6 +71,6 @@ const LoginBarComponent = (props: ILoginBarProps): JSX.Element => {
 export const LoginBar = connect(
   LoginBarComponent,
   {
-    shouldComponentUpdate: (action, payload) => action.startsWith('LG__'),
+    shouldComponentUpdate: (action) => action.startsWith('LG__'),
   },
 );

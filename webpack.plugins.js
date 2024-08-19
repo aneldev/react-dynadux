@@ -1,9 +1,7 @@
-const webpack = require('webpack');
 const CircularDependencyPlugin = require('circular-dependency-plugin')
 
 module.exports = {
   plugins: [
-
     // new webpack.IgnorePlugin(/\/something$/),            // Ignore something
     // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/), // Ignore Moment's locale
 
@@ -30,7 +28,5 @@ module.exports = {
         console.log('Circular Dependency: End detecting webpack modules cycles');
       },
     }),
-
   ]
 };
-
