@@ -6,9 +6,8 @@ export interface IConnectConfig {
 export interface IDebounceConfig {
     timeout: number;
 }
-interface IWithStore {
+export interface IWithStore {
     store: any;
     dynaduxStore: any;
 }
 export declare const connect: <TProps>(Component: React.ComponentType<TProps>, config?: IConnectConfig) => React.ComponentType<Omit<TProps, keyof IWithStore>>;
-export {};

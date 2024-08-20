@@ -55,15 +55,15 @@ const config = {
     // help: https://webpack.js.org/guides/tree-shaking/
     usedExports: true,  // true to remove the dead code,
   },
-  // Every folder of ./src is a standalone exported module
   devtool: "source-map",        // help: https://webpack.js.org/configuration/devtool/
+  // Every folder of ./src is a standalone exported module
   output:
     isSingleModule
       ? {
         // Classic export of the /src/index.ts
         path: path.resolve(__dirname, 'dist'),
-        filename: 'index.js',
         publicPath: '/dist/',
+        filename: 'index.js',
         library: package_.name,
         libraryTarget: 'umd',
         umdNamedDefine: true,
@@ -71,8 +71,10 @@ const config = {
       }
       : {
         // Multiple module exports of the /src/<Module name>/index.ts
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/dist/',
         filename: '[name]/index.js',
-        path: __dirname + '/dist',
+        library: package_.name,
         libraryTarget: 'umd',
         umdNamedDefine: true,
         clean: true,
@@ -88,3 +90,5 @@ const config = {
 };
 
 module.exports = config;
+
+console.debug(JSON.stringify(config, null, 2));
