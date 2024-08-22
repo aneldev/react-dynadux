@@ -1,19 +1,17 @@
 {
   "compilerOptions": {
     "lib": [
-      "es2015",
-      "es2015.promise",
-      "es2016",
-      "es6",
-      "dom"
+      "ES2019",
+      "DOM",
+      "DOM.Iterable"
     ],
     "outDir": "./dist/",
     "declaration": true,
     "declarationDir": "./dist/",
     "sourceMap": true,
     "module": "commonjs",
-    "target": "es5",
-    "jsx": "react",
+    "target": "ES2019",
+    "jsx": "react-jsx",
     "allowJs": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -25,6 +23,7 @@
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "resolveJsonModule": true,
     "types": [
       "node",
       "jest"
