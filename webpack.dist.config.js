@@ -90,5 +90,3 @@ const config = {
 };
 
 module.exports = config;
-
-console.debug(JSON.stringify(config, null, 2));
