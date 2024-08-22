@@ -20,11 +20,11 @@ export interface IWithStore {
 }
 
 export const connect = <TProps, >(
-    Component: React.ComponentType<TProps>,
-    config: IConnectConfig = {},
-  ): React.ComponentType<Omit<TProps, keyof IWithStore>> => {
-    const {shouldComponentUpdate} = config;
-    const Wrapper = class extends React.Component {
+  Component: React.ComponentType<TProps>,
+  config: IConnectConfig = {},
+): React.ComponentType<Omit<TProps, keyof IWithStore>> => {
+  const {shouldComponentUpdate} = config;
+  const Wrapper = class extends React.Component {
       private isMount = false;
 
       constructor(props: any, context: any) {
@@ -76,9 +76,9 @@ export const connect = <TProps, >(
           />
         );
       }
-    };
-
-    Wrapper.contextType = DynaDuxContext;
-
-    return Wrapper as any;
   };
+
+  Wrapper.contextType = DynaDuxContext;
+
+  return Wrapper as any;
+};
