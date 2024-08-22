@@ -56,7 +56,7 @@ importers:
         version: 6.4.8
       '@testing-library/react':
         specifier: ^14.3.1
-        version: 14.3.1(react-dom@18.3.1(react@17.0.2))(react@17.0.2)
+        version: 14.3.1(react-dom@18.3.1(react@18.3.1))(react@17.0.2)
       '@types/jest':
         specifier: ^27.0.1
         version: 27.5.2
@@ -184,8 +184,8 @@ importers:
         specifier: ^0.5.1
         version: 0.5.1
       react-test-renderer:
-        specifier: ^16.6.1
-        version: 16.14.0(react@17.0.2)
+        specifier: ^18.3.1
+        version: 18.3.1(react@17.0.2)
       sass-loader:
         specifier: ^7.1.0
         version: 7.3.1(webpack@5.93.0(esbuild@0.21.5)(webpack-cli@5.1.4))
@@ -6199,6 +6199,9 @@ packages:
   react-is@18.1.0:
     resolution: {integrity: sha512-Fl7FuabXsJnV5Q1qIOQwx/sagGF18kogb4gpfcG4gjLBWO0WDiiz1ko/ExayuxE7InyQkBLkxRFG5oxY6Uu3Kg==}
 
+  react-is@18.3.1:
+    resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
+
   react-refresh@0.14.2:
     resolution: {integrity: sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==}
     engines: {node: '>=0.10.0'}
@@ -6213,10 +6216,15 @@ packages:
     peerDependencies:
       react: '>=15'
 
-  react-test-renderer@16.14.0:
-    resolution: {integrity: sha512-L8yPjqPE5CZO6rKsKXRO/rVPiaCOy0tQQJbC+UjPNlobl5mad59lvPjwFsQHTvL03caVDIVr9x9/OSgDe6I5Eg==}
+  react-shallow-renderer@16.15.0:
+    resolution: {integrity: sha512-oScf2FqQ9LFVQgA73vr86xl2NaOIX73rh+YFqcOp68CWj56tSfgtGKrEbyhCj0rSijyG9M1CYprTh39fBi5hzA==}
     peerDependencies:
-      react: ^16.14.0
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0
+
+  react-test-renderer@18.3.1:
+    resolution: {integrity: sha512-KkAgygexHUkQqtvvx/otwxtuFu5cVjfzTCtjXLH9boS19/Nbtg84zS7wIQn39G8IlrhThBpQsMKkq5ZHZIYFXA==}
+    peerDependencies:
+      react: ^18.3.1
 
   react@17.0.2:
     resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==}
@@ -6528,9 +6536,6 @@ packages:
   saxes@5.0.1:
     resolution: {integrity: sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw==}
     engines: {node: '>=10'}
-
-  scheduler@0.19.1:
-    resolution: {integrity: sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==}
 
   scheduler@0.20.2:
     resolution: {integrity: sha512-2eWfGgAqqWFGqtdMmcL5zCMK1U8KlXv8SQFGglL3CEtd0aDVDWgeF/YoCmvln55m5zSk3J/20hTaSBeSObsQDQ==}
@@ -9071,7 +9076,9 @@ snapshots:
       jest-runner: 24.9.0
       jest-runtime: 24.9.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   '@jest/test-sequencer@26.6.3':
     dependencies:
@@ -9491,7 +9498,7 @@ snapshots:
       lodash: 4.17.21
       redent: 3.0.0
 
-  '@testing-library/react@14.3.1(react-dom@18.3.1(react@17.0.2))(react@17.0.2)':
+  '@testing-library/react@14.3.1(react-dom@18.3.1(react@18.3.1))(react@17.0.2)':
     dependencies:
       '@babel/runtime': 7.25.0
       '@testing-library/dom': 9.3.4
@@ -13704,9 +13711,7 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   jest-jasmine2@26.6.3:
     dependencies:
@@ -15435,6 +15440,8 @@ snapshots:
 
   react-is@18.1.0: {}
 
+  react-is@18.3.1: {}
+
   react-refresh@0.14.2: {}
 
   react-router-dom@5.3.4(react@17.0.2):
@@ -15461,13 +15468,18 @@ snapshots:
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
 
-  react-test-renderer@16.14.0(react@17.0.2):
+  react-shallow-renderer@16.15.0(react@17.0.2):
     dependencies:
       object-assign: 4.1.1
-      prop-types: 15.8.1
       react: 17.0.2
-      react-is: 16.13.1
-      scheduler: 0.19.1
+      react-is: 18.3.1
+
+  react-test-renderer@18.3.1(react@17.0.2):
+    dependencies:
+      react: 17.0.2
+      react-is: 18.3.1
+      react-shallow-renderer: 16.15.0(react@17.0.2)
+      scheduler: 0.23.2
 
   react@17.0.2:
     dependencies:
@@ -15840,11 +15852,6 @@ snapshots:
   saxes@5.0.1:
     dependencies:
       xmlchars: 2.2.0
-
-  scheduler@0.19.1:
-    dependencies:
-      loose-envify: 1.4.0
-      object-assign: 4.1.1
 
   scheduler@0.20.2:
     dependencies:
