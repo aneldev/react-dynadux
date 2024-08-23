@@ -6,6 +6,7 @@
     "type": "git",
     "url": "https://github.com/aneldev/react-dynadux"
   },
+  "private": false,
   "sideEffects": false,
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -27,7 +28,7 @@
     "test": "jest --coverage --no-cache --runInBand",
     "test-debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "test-watch": "jest --watch --verbose --runInBand",
-    "test-no-coverage": "jest --no-cache --runInBand",
+    "test-no-coverage": "jest --collectCoverage=false --no-cache --runInBand",
     "test-update-snapshots": "jest --updateSnapshot --runInBand",
     "update-all-deps": "pnpm update --latest",
     "publish-push": "pnpm version patch && pnpm publish --non-interactive && git push && git push --tags",
@@ -35,6 +36,7 @@
   },
   "keywords": [
     "react",
+    "component",
     "dynadux",
     "redux"
   ],
@@ -127,6 +129,9 @@
     "transform": {
       "^.+\\.(ts|tsx)$": "ts-jest"
     },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(react-native|\\@mui)/)"
+    ],
     "testRegex": "(src|tests)/.*\\.(test|spec)\\.(ts|tsx|js|jsx)$",
     "moduleFileExtensions": [
       "ts",
