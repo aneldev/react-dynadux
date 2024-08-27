@@ -1,7 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
+import type {
+  Meta, StoryObj,
+} from '@storybook/react';
+import {fn} from '@storybook/test';
 
-import { Header } from './Header';
+import {Header} from './Header';
 
 const meta = {
   title: 'Example/Header',
@@ -22,12 +24,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const LoggedIn: Story = {
-  args: {
-    user: {
-      name: 'Jane Doe',
-    },
-  },
-};
+export const LoggedIn: Story = {args: {user: {name: 'Jane Doe'}}};
 
 export const LoggedOut: Story = {};
