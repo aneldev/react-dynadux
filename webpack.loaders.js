@@ -183,6 +183,11 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'svg-inline-loader',
       },
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
+        type: 'javascript/auto',
+      },
     ],
   },
 };
