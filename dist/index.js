@@ -262,14 +262,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   DynaDuxContext: () => (/* reexport safe */ _Provider__WEBPACK_IMPORTED_MODULE_0__.DynaDuxContext),
 /* harmony export */   Provider: () => (/* reexport safe */ _Provider__WEBPACK_IMPORTED_MODULE_0__.Provider),
-/* harmony export */   connect: () => (/* reexport safe */ _connect__WEBPACK_IMPORTED_MODULE_1__.connect),
-/* harmony export */   s1: () => (/* binding */ s1)
+/* harmony export */   connect: () => (/* reexport safe */ _connect__WEBPACK_IMPORTED_MODULE_1__.connect)
 /* harmony export */ });
 /* harmony import */ var _Provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Provider */ "./src/Provider.tsx");
 /* harmony import */ var _connect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./connect */ "./src/connect.tsx");
 
 
-var s1 = "4";
 /******/ 	return __webpack_exports__;
 /******/ })()
 ;

@@ -9,5 +9,3 @@ export {
   IConnectConfig,
   IWithStore,
 } from "./connect";
-
-export const s1 = "4";

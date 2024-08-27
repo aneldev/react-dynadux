@@ -89,7 +89,4 @@ const config = {
   plugins: plugins.plugins,
 };
 
-console.debug(JSON.stringify(config, null, 2));
-
-
 module.exports = config;
