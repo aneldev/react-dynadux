@@ -1,9 +1,19 @@
+const path = require('path');
+
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin')
 
 module.exports = {
   plugins: [
     // new webpack.IgnorePlugin(/\/something$/),            // Ignore something
     // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/), // Ignore Moment's locale
+
+    new ForkTsCheckerWebpackPlugin({
+      async: false,
+      typescript: {
+        configFile: path.resolve(__dirname, 'tsconfig.json')
+      }
+    }),
 
     new CircularDependencyPlugin({
       // `onStart` is called before the cycle detection starts

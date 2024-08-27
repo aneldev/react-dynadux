@@ -5,12 +5,14 @@
       "DOM",
       "DOM.Iterable"
     ],
+    "strict": true,
     "outDir": "./dist/",
     "declaration": true,
     "declarationDir": "./dist/",
     "sourceMap": true,
-    "module": "commonjs",
-    "target": "ES2019",
+    "module": "esnext",
+    "target": "es6",
+    "moduleResolution": "node",
     "jsx": "react-jsx",
     "allowJs": false,
     "esModuleInterop": true,
@@ -24,6 +26,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "resolveJsonModule": true,
+    "emitDeclarationOnly": false,
     "types": [
       "node",
       "jest"
@@ -32,5 +35,10 @@
   "compileOnSave": false,
   "files": [
     "./src/index.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts",
+    "**/*.test.tsx"
   ]
 }

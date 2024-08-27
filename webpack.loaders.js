@@ -9,13 +9,21 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        // typescript loader
+        // TypeScript loader
         test: /\.(tsx|ts)$/,
         exclude: /node_modules/,
         use: [
-          'babel-loader',
-          'ts-loader',
-        ],
+          {
+            loader: 'babel-loader',
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: false, // Ensure this is set to false or omitted to enable type checking
+              configFile: 'tsconfig.json',
+            }
+          }
+        ]
       },
       {	// css loader
         test: /\.css$/,
