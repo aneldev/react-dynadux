@@ -1,6 +1,7 @@
 .git/
 .idea/
 dev/public/static
+storybook-static
 coverage/
 node_modules/
 temp/
