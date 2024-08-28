@@ -22,7 +22,7 @@ module.exports = {
               transpileOnly: false, // Ensure this is set to false or omitted to enable type checking
               configFile: 'tsconfig.json',
             }
-          }
+          },
         ]
       },
       {	// css loader
