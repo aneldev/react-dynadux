@@ -2,7 +2,7 @@ import { CSSProperties } from "react";
 
 import {
   connect,
-} from "../../../../src";
+} from "../../../index";
 
 import { IAppStoreApi } from "../store/appStore";
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { connect } from "../../../../src";
+import { connect } from "../../../index";
 import { IAppStoreApi } from "../store/appStore";
 import { ELoginSectionActions } from "../store/loginSection";
 
