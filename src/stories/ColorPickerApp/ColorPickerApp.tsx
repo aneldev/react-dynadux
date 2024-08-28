@@ -1,11 +1,11 @@
 import * as React from "react";
-import { CSSProperties } from "react";
+import {CSSProperties} from "react";
 
-import { Provider } from "../../index";
+import {Provider} from "../../index";
 
-import { createAppStore } from "./store/appStore";
-import { LoginBar } from "./components/LoginBar";
-import { ColorPicker } from "./components/ColorPicker";
+import {createAppStore} from "./store/appStore";
+import {LoginBar} from "./components/LoginBar";
+import {ColorPicker} from "./components/ColorPicker";
 
 const styleRoot: CSSProperties = {
   width: "400px",

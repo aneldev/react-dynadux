@@ -1,7 +1,7 @@
 import * as React from "react";
-import { connect } from "../../../index";
-import { IAppStoreApi } from "../store/appStore";
-import { ELoginSectionActions } from "../store/loginSection";
+import {connect} from "../../../index";
+import {IAppStoreApi} from "../store/appStore";
+import {ELoginSectionActions} from "../store/loginSection";
 
 export interface IColorPickerProps {
   store: IAppStoreApi;
@@ -16,9 +16,7 @@ class ColorPickerComponent extends React.Component<IColorPickerProps> {
   public render(): JSX.Element | null {
     const {
       store: {
-        login: {
-          state: {logged},
-        },
+        login: {state: {logged}},
         color: {
           state: {color},
           actions: {reset},
@@ -53,6 +51,6 @@ export const ColorPicker = connect(
   {
     shouldComponentUpdate: (action) =>
       action.startsWith('CL__')
-      || action === ELoginSectionActions.ON_LOGIN_STATE_CHANGE
+      || action === ELoginSectionActions.ON_LOGIN_STATE_CHANGE,
   },
 );

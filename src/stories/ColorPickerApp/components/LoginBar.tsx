@@ -1,10 +1,10 @@
-import { CSSProperties } from "react";
+import {CSSProperties} from "react";
 
 import {
   connect,
 } from "../../../index";
 
-import { IAppStoreApi } from "../store/appStore";
+import {IAppStoreApi} from "../store/appStore";
 
 export interface ILoginBarProps {
   store: IAppStoreApi;
@@ -18,13 +18,9 @@ const rootStyle: CSSProperties = {
   marginBottom: '4px',
 };
 
-const buttonStyle: CSSProperties = {
-  marginLeft: '8px',
-};
+const buttonStyle: CSSProperties = {marginLeft: '8px'};
 
-const appIconStyle: CSSProperties = {
-  float: 'left', // Nostalgia!
-};
+const appIconStyle: CSSProperties = {float: 'left'}; // This is Nostalgia!
 
 const LoginBarComponent = (props: ILoginBarProps): JSX.Element => {
   const {appIcon} = props;
@@ -53,7 +49,7 @@ const LoginBarComponent = (props: ILoginBarProps): JSX.Element => {
       <span style={appIconStyle}>{appIcon}</span>
       {logged
         ? <>Welcome {userDisplayName}</>
-        : <>Good {(new Date).getHours() >= 12 ? 'afternoon' : 'morning'}</>
+        : <>Good {(new Date()).getHours() >= 12 ? 'afternoon' : 'morning'}</>
       }
       <button
         style={buttonStyle}
@@ -69,7 +65,5 @@ const LoginBarComponent = (props: ILoginBarProps): JSX.Element => {
 
 export const LoginBar = connect(
   LoginBarComponent,
-  {
-    shouldComponentUpdate: (action) => action.startsWith('LG__'),
-  },
+  {shouldComponentUpdate: (action) => action.startsWith('LG__')},
 );
