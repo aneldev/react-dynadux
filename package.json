@@ -13,10 +13,9 @@
   "scripts": {
     "install-clean": "rm -rf node_modules; pnpm install",
     "start": "webpack-dev-server --config webpack.dev.config.js --devtool eval --progress --hot --open --host localhost --port 3200 ",
-    "build-analyze": "webpack --config webpack.dist.analyze.config.js",
     "build": "pnpm lint && rm -rf ./dist && webpack --config webpack.dist.config.js",
     "build-watch": "rm -rf ./dist; pnpm webpack --watch --config webpack.dist.config.js",
-    "build-code-watch": "webpack --watch --config webpack.dist.config.js",
+    "build-analyze": "webpack --config webpack.dist.analyze.config.js",
     "storybook-start": "storybook dev -p 6006",
     "storybook-deploy": "storybook build && gh-pages -d storybook-static",
     "commit": "git add -u && git add -A && git commit --allow-empty -m",
@@ -42,8 +41,7 @@
   "license": "MIT",
   "dependencies": {
     "dyna-debounce": "^2.0.4",
-    "dynadux": "^2.5.8",
-    "react-refresh": "^0.14.2"
+    "dynadux": "^2.5.8"
   },
   "peerDependencies": {
     "react": "^18.0.0",
@@ -114,6 +112,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-test-renderer": "^18.3.1",
+    "react-refresh": "^0.14.2",
     "sass-loader": "^16.0.1",
     "source-map-loader": "5.0.0",
     "storybook": "^8.2.9",
