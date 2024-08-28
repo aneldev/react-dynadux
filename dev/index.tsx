@@ -1,6 +1,6 @@
 import {createRoot} from "react-dom/client";
 
-import { App } from "./AppExamples/ColorPickerApp/App";
+import { App } from "./src/ColorPickerApp/App";
 
 const appWrapperID: string = 'app-container';
 const appElement: HTMLElement = document.createElement("DIV");
