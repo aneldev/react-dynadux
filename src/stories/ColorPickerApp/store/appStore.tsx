@@ -1,6 +1,6 @@
 import {
   createStore,
-  dynaduxDebugMiddleware
+  dynaduxDebugMiddleware,
 } from "dynadux";
 
 import {

@@ -12,15 +12,11 @@
   "typings": "./dist/index.d.ts",
   "scripts": {
     "install-clean": "rm -rf node_modules; pnpm install",
-    "start": "webpack-dev-server --config webpack.dev.config.js --devtool eval --progress --hot --open --host localhost --port 3200 ",
-    "build-analyze": "webpack --config webpack.dist.analyze.config.js",
+    "storybook-start": "storybook dev -p 6006",
+    "storybook-deploy": "storybook build && gh-pages -d storybook-static",
     "build": "pnpm lint && rm -rf ./dist && webpack --config webpack.dist.config.js",
     "build-watch": "rm -rf ./dist; pnpm webpack --watch --config webpack.dist.config.js",
-    "build-code-watch": "webpack --watch --config webpack.dist.config.js",
-    "build-ts-declarations": "node tsconfig.update.js && tsc && cd dist/ && find . -name \\*.js -delete && cd ..",
-    "build-ts-declarations-watch": "nodemon -w ./src -e ts,tsx --exec \"pnpm build-ts-declarations\"",
-    "storybook": "storybook dev -p 6006",
-    "storybook-build": "storybook build",
+    "build-analyze": "webpack --config webpack.dist.analyze.config.js",
     "commit": "git add -u && git add -A && git commit --allow-empty -m",
     "commit-amend": "git add -u && git add -A && git commit --amend --allow-empty --no-edit",
     "lint": "eslint -c eslint.config.mjs ./src ./tests",
@@ -32,7 +28,7 @@
     "test-update-snapshots": "jest --updateSnapshot --runInBand",
     "update-deps": "rm rf pnpm-lock.yaml; pnpm update --latest",
     "publish-push": "pnpm version patch && pnpm publish --non-interactive && git push && git push --tags",
-    "release": "pnpm build && pnpm test && git add -u && git add -A && git commit --allow-empty -m \"Build changes\" && pnpm publish-push"
+    "release": "pnpm build && pnpm test && pnpm storybook-build git add -u && git add -A && git commit --allow-empty -m \"Build changes\" && pnpm publish-push && pnpm storybook-deploy"
   },
   "keywords": [
     "react",
@@ -44,8 +40,7 @@
   "license": "MIT",
   "dependencies": {
     "dyna-debounce": "^2.0.4",
-    "dynadux": "^2.5.8",
-    "react-refresh": "^0.14.2"
+    "dynadux": "^2.5.8"
   },
   "peerDependencies": {
     "react": "^18.0.0",
@@ -97,6 +92,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^9.0.2",
+    "gh-pages": "^6.1.1",
     "globals": "^15.9.0",
     "html-webpack-plugin": "^5.6.0",
     "identity-obj-proxy": "^3.0.0",
@@ -112,7 +108,10 @@
     "postcss-flexbugs-fixes": "5.0.2",
     "postcss-loader": "^8.1.1",
     "raw-loader": "^4.0.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-test-renderer": "^18.3.1",
+    "react-refresh": "^0.14.2",
     "sass-loader": "^16.0.1",
     "source-map-loader": "5.0.0",
     "storybook": "^8.2.9",

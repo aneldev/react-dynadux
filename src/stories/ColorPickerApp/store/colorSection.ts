@@ -1,4 +1,4 @@
-import { ICreateStoreAPI } from "dynadux";
+import {ICreateStoreAPI} from "dynadux";
 
 export interface IColorSectionState {
   color: string;
@@ -12,9 +12,7 @@ export enum EColorPickerActions {
 export const createColorSection = (store: ICreateStoreAPI) => {
   const section = store.createSection<IColorSectionState>({
     section: 'colorSection',
-    initialState: {
-      color: '',
-    },
+    initialState: {color: ''},
     reducers: {
       [EColorPickerActions.RESET]: () => ({color: ''}),
       [EColorPickerActions.SET_COLOR]: ({payload}) => ({color: payload}),
