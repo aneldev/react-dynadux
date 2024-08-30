@@ -1,5 +1,7 @@
 .git/
 .idea/
+.vscode/
+.DS_Store
 dev/public/static
 storybook-static
 coverage/

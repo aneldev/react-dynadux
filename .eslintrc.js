@@ -2,10 +2,13 @@
 module.exports = {
   root: true,
   env: {
-    "browser": false,
-    "es2021": true,
+    browser: false,
+    es2021: true,
     "jest/globals": true,
   },
+  ignorePatterns: [
+    "under-construction/",
+  ],
   parser: "@typescript-eslint/parser",
   plugins: [
     "eslint-plugin-react",
@@ -14,6 +17,7 @@ module.exports = {
   ],
   extends: [
     "react-app",
+    "react-app/jest",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:jest/recommended",
@@ -41,6 +45,7 @@ module.exports = {
           {
             allow: [
               "log",
+              "info",
               "warn",
               "error",
               "time",
@@ -217,7 +222,9 @@ module.exports = {
           "always",
           {
             markers: [
-              "/"
+              "/",
+              "#region",
+              "#endregion",
             ]
           }
         ],
@@ -235,6 +242,13 @@ module.exports = {
         "react/jsx-pascal-case": [
           "warn",
           {}
+        ],
+        'no-restricted-syntax': [
+          'error',
+          {
+            selector: 'JSXAttribute[name.name="dangerouslySetInnerHTML"]',
+            message: 'Using dangerouslySetInnerHTML is not allowed! Use the HTMLContent instead!'
+          }
         ],
         "react/jsx-first-prop-new-line": [
           "warn",
