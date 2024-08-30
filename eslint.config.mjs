@@ -3,6 +3,8 @@ import globals from "globals";
 import path from "path";
 import {fileURLToPath} from "node:url";
 
+import { fixupPluginRules } from "@eslint/compat";
+
 import react from "eslint-plugin-react";
 import jest from "eslint-plugin-jest";
 
@@ -10,6 +12,7 @@ import etc from "eslint-plugin-etc";
 import tsParser from "@typescript-eslint/parser";
 import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
+import flowType from "eslint-plugin-flowtype";
 
 import {FlatCompat} from "@eslint/eslintrc";
 
@@ -22,54 +25,6 @@ const compat = new FlatCompat({
   allConfig: js.configs.all
 });
 
-const dynaObjectScan = (obj, cb, _parent, _propertyName, _path = '', _scanned = []) => {
-  if (typeof obj === 'object' && obj !== null && _scanned.indexOf(obj) > -1)
-    return;
-  _scanned.push(obj);
-  let skip = false;
-  cb({
-    value: obj,
-    parent: _parent,
-    propertyName: _propertyName,
-    path: _path,
-    skip: () => skip = true,
-  });
-  if (skip)
-    return;
-  if (typeof obj === "object" && obj !== null) {
-    if (Array.isArray(obj)) {
-      obj
-        .forEach((itemValue, index) => dynaObjectScan(itemValue, cb, obj, index.toString(), `${_path}[${index.toString()}]`, _scanned));
-    }
-    else {
-      Object.keys(obj)
-        .forEach(propertyName => dynaObjectScan(obj[propertyName], cb, obj, propertyName, `${_path}.${propertyName}`, _scanned));
-    }
-  }
-};
-
-const plugins = {
-  react,
-  etc,
-  jest,
-  '@stylistic': stylistic,
-};
-
-if (false) dynaObjectScan(
-  plugins,
-  (
-    {
-      propertyName,
-      parent,
-    },
-    )=>{
-    if (propertyName?.includes("flow")) {
-      console.debug(propertyName, 'deleted')
-      delete parent[propertyName];
-    }
-  },
-)
-
 export default [
   ...compat.extends(
     "react-app",
@@ -79,7 +34,13 @@ export default [
   ),
 
   {
-    plugins,
+    plugins: {
+      react,
+      etc,
+      jest,
+      '@stylistic': stylistic,
+      flowtype: fixupPluginRules(flowType),
+    },
 
     languageOptions: {
       globals: {
@@ -89,7 +50,8 @@ export default [
 
       parser: tsParser,
     },
-  }, {
+  },
+  {
     files: [
       "**/*.ts",
       "**/*.tsx",
@@ -271,10 +233,12 @@ export default [
       "capitalized-comments": ["warn", "always"],
       "jest/no-conditional-expect": "off",
     },
-  }, {
+  },
+  {
     files: ["**/*.stories.*"],
 
     rules: {
       "import/no-anonymous-default-export": "off",
     },
-  }];
+  },
+];
