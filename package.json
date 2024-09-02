@@ -8,8 +8,10 @@
   },
   "private": false,
   "sideEffects": false,
-  "main": "./dist/index.js",
-  "typings": "./dist/index.d.ts",
+  "source": "src/index.tsx",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "esnext": "dist/index.js",
   "scripts": {
     "install-clean": "rm -rf node_modules; pnpm install",
     "storybook-start": "storybook dev -p 6006",
@@ -29,7 +31,7 @@
     "test-update-snapshots": "jest --updateSnapshot --runInBand",
     "update-deps": "rm rf pnpm-lock.yaml; pnpm update --latest",
     "publish-push": "pnpm version patch && pnpm publish --non-interactive && git push && git push --tags",
-    "release": "pnpm build && pnpm test && pnpm storybook-build git add -u && git add -A && git commit --allow-empty -m \"Build changes\" && pnpm publish-push && pnpm storybook-deploy"
+    "release": "pnpm build && pnpm test && pnpm storybook-build git && add -u && git add -A && git commit --allow-empty -m \"Build changes\" && pnpm publish-push && pnpm storybook-deploy"
   },
   "keywords": [
     "react",
