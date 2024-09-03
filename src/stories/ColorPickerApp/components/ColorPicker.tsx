@@ -8,6 +8,8 @@ export interface IColorPickerProps {
 }
 
 class ColorPickerComponent extends React.Component<IColorPickerProps> {
+  static __docgenInfo?: object;
+
   private handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     const {store: {color: {actions: {setColor}}}} = this.props;
     setColor(event.target.value);

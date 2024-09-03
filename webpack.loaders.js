@@ -27,19 +27,20 @@ module.exports = {
       },
       {	// css loader
         test: /\.css$/,
-        "use": [
-          "style-loader",
-          "css-loader"
+        use: [
+          'style-loader',
+          'css-loader'
         ],
         exclude: /node_modules/,
       },
       {
-        test: /\.module.less$/,
+        // Rule for LESS modules
+        test: /\.module\.less$/,
         exclude: /node_modules/,
         use: [
-          require.resolve('style-loader'),
+          'style-loader',
           {
-            loader: require.resolve('typings-for-css-modules-loader'),
+            loader: 'typings-for-css-modules-loader',
             options: {
               importLoaders: 1,
               modules: true,
@@ -48,43 +49,52 @@ module.exports = {
             },
           },
           {
-            loader: require.resolve('postcss-loader'),
+            loader: 'postcss-loader',
             options: {
-              // Necessary for external CSS imports to work
-              // https://github.com/facebookincubator/create-react-app/issues/2677
-              ident: 'postcss',
-              plugins: () => [
-                require('postcss-flexbugs-fixes'),
-                autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9', // React doesn't support IE8 anyway
-                  ],
-                  flexbox: 'no-2009',
-                }),
-              ],
+              postcssOptions: {
+                ident: 'postcss',
+                plugins: [
+                  require('postcss-flexbugs-fixes'),
+                  autoprefixer({
+                    overrideBrowserslist: [
+                      '>1%',
+                      'last 4 versions',
+                      'Firefox ESR',
+                      'not ie < 9', // React doesn't support IE8 anyway
+                    ],
+                    flexbox: 'no-2009',
+                  }),
+                ],
+              },
             },
           },
-          {
-            loader: require.resolve('less-loader'),
-          },
+          'less-loader',
         ],
       },
       {
-        test: /^((?!\.module).)*less$/,
+        // Rule for regular LESS (non-modular)
+        test: /^((?!\.module).)*\.less$/,
         exclude: /node_modules/,
         use: [
           'style-loader',
-          'css-loader',
+          'css-loader', // No 'modules: true' here
           {
             loader: 'postcss-loader',
             options: {
-              plugins: function () {
-                return [
-                  require('autoprefixer'),
-                ];
+              postcssOptions: {
+                ident: 'postcss',
+                plugins: [
+                  require('postcss-flexbugs-fixes'),
+                  autoprefixer({
+                    overrideBrowserslist: [
+                      '>1%',
+                      'last 4 versions',
+                      'Firefox ESR',
+                      'not ie < 9', // React doesn't support IE8 anyway
+                    ],
+                    flexbox: 'no-2009',
+                  }),
+                ],
               },
             },
           },
@@ -95,9 +105,9 @@ module.exports = {
         test: /\.module.scss$/,
         exclude: /node_modules/,
         use: [
-          require.resolve('style-loader'),
+          'style-loader',
           {
-            loader: require.resolve('typings-for-css-modules-loader'),
+            loader: 'typings-for-css-modules-loader',
             options: {
               importLoaders: 1,
               modules: true,
@@ -106,28 +116,28 @@ module.exports = {
             },
           },
           {
-            loader: require.resolve('postcss-loader'),
+            loader: 'postcss-loader',
             options: {
               // Necessary for external CSS imports to work
               // https://github.com/facebookincubator/create-react-app/issues/2677
-              ident: 'postcss',
-              plugins: () => [
-                require('postcss-flexbugs-fixes'),
-                autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9', // React doesn't support IE8 anyway
-                  ],
-                  flexbox: 'no-2009',
-                }),
-              ],
+              postcssOptions: {
+                ident: 'postcss',
+                plugins: [
+                  require('postcss-flexbugs-fixes'),
+                  autoprefixer({
+                    overrideBrowserslist: [
+                      '>1%',
+                      'last 4 versions',
+                      'Firefox ESR',
+                      'not ie < 9', // React doesn't support IE8 anyway
+                    ],
+                    flexbox: 'no-2009',
+                  }),
+                ],
+              },
             },
           },
-          {
-            loader: require.resolve('sass-loader'),
-          },
+          'sass-loader',
         ],
       },
       {
@@ -139,10 +149,10 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: function () {
-                return [
+              postcssOptions: {
+                plugins: [
                   require('autoprefixer'),
-                ];
+                ],
               },
             },
           },
@@ -154,9 +164,9 @@ module.exports = {
         // help: https://christianalfoni.github.io/react-webpack-cookbook/Inlining-images.html
         test: /\.(png|jpg|gif)$/,
         exclude: /node_modules/,
-        "loader": "url-loader",
-        "options": {
-          "limit": 100000
+        loader: 'url-loader',
+        options: {
+          limit: 100000
         },
       },
       {

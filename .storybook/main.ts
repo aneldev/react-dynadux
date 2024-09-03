@@ -1,7 +1,12 @@
 import type {StorybookConfig} from "@storybook/react-webpack5";
 
+const {module: {rules}} = require('../webpack.loaders.js');
+const {plugins} = require('../webpack.plugins.js');
+
 const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  stories: [
+    "../src/**/*.stories.@(mjs|ts|tsx)",
+  ],
   addons: [
     "@storybook/addon-webpack5-compiler-swc",
     "@storybook/addon-onboarding",
@@ -15,26 +20,23 @@ const config: StorybookConfig = {
     options: {},
   },
   webpackFinal: async (config: any) => {
-    // This fixed the problem: ReferenceError: React is not defined
-    // And this is because of the tsconfig.json "jsx": "react-jsx" while with "jsx": "react" it works but required to have the old-fashioned import of the react.
-    config.module.rules.push({
-      test: /\.(ts|tsx)$/,
-      use: [
-        {
-          loader: require.resolve('babel-loader'),
-          options: {
-            presets: [['react-app', { flow: false, typescript: true }]],
-          },
-        },
-        {
-          loader: require.resolve('ts-loader'),
-          options: {
-            transpileOnly: true,
-          },
-        },
-      ],
-    });
-
+    // Remove the reference of the ./tsconfig.jsom from storybook
+    // Otherwise, the Storybook will write on dist folder!
+    for (const rule of rules) {
+      if (Array.isArray(rule.use)) {
+        for (const use of rule.use) {
+          if (use.loader==="ts-loader") {
+            if (use.options) {
+              use.options.transpileOnly = true;
+              delete use.options.configFile;
+            }
+          }
+        }
+      }
+    }
+    // Add the rules and plugins to storybook's webpack config
+    config.module.rules = config.module.rules.concat(rules);
+    config.plugins = config.plugins.concat(plugins);
     return config;
   },
 

@@ -13,6 +13,7 @@ const styleRoot: CSSProperties = {
 };
 
 export class ColorPickerApp extends React.Component {
+  static __docgenInfo?: object;
   private readonly store = createAppStore();
   private readonly appIcon = <i className="fas fa-gem"/>;
 

@@ -10,8 +10,8 @@ const thisPackageBelongsToMonorepo =
   !!require('../../package.json').workspaces;
 
 const package_ = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
-const loaders = require('./webpack.loaders');
-const plugins = require('./webpack.plugins');
+const loaders = require('./webpack.loaders.js');
+const plugins = require('./webpack.plugins.js');
 
 const getModuleNames =
   root =>
@@ -23,7 +23,7 @@ const moduleNames = getModuleNames('./src');
 
 process.traceDeprecation = true;
 
-const config = {
+module.exports = {
   mode: "development",          // distribute it without minification
   target: "web",
   entry:
@@ -88,5 +88,3 @@ const config = {
   },
   plugins: plugins.plugins,
 };
-
-module.exports = config;
