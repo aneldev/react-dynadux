@@ -54,8 +54,8 @@ var Provider = function Provider(props) {
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Provider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Provider */ "./src/Provider.tsx");
-/* harmony import */ var _debounce__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./debounce */ "./src/debounce.ts");
+/* harmony import */ var _Provider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Provider */ "./src/Provider.tsx");
+/* harmony import */ var _debounce__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./debounce */ "./src/debounce.ts");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
@@ -91,7 +91,7 @@ var connect = function connect(Component) {
         if (!_this.isMount) return;
         _this.forceUpdate();
       };
-      if (config.debounce) _this.callForceUpdate = (0,_debounce__WEBPACK_IMPORTED_MODULE_2__.debounce)(_this.callForceUpdate, config.debounce.timeout);
+      if (config.debounce) _this.callForceUpdate = (0,_debounce__WEBPACK_IMPORTED_MODULE_3__.debounce)(_this.callForceUpdate, config.debounce.timeout);
       return _this;
     }
     _inherits(Wrapper, _React$Component);
@@ -128,7 +128,7 @@ var connect = function connect(Component) {
       }
     }]);
   }(react__WEBPACK_IMPORTED_MODULE_1__.Component);
-  Wrapper.contextType = _Provider__WEBPACK_IMPORTED_MODULE_3__.DynaDuxContext;
+  Wrapper.contextType = _Provider__WEBPACK_IMPORTED_MODULE_2__.DynaDuxContext;
   return Wrapper;
 };
 

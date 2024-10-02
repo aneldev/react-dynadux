@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Home has expected content with deep render 1`] = `
+exports[`React has expected content with deep render 1`] = `
 <DocumentFragment>
   <div />
 </DocumentFragment>
