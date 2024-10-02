@@ -7,4 +7,5 @@ export {
 export {
   connect,
   IConnectConfig,
+  IWithStore,
 } from "./connect";

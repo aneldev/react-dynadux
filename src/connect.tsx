@@ -1,7 +1,9 @@
 import * as React from "react";
+
+import {IStoreProviderAPI} from "dynadux/dist/commonJs/create/createStore";
+
 import {DynaDuxContext} from "./Provider";
 import {debounce} from "./debounce";
-import {IStoreProviderAPI} from "dynadux/dist/commonJs/create/createStore";
 
 export interface IConnectConfig {
   shouldComponentUpdate?: (action: string, payload?: any) => boolean;
@@ -12,18 +14,17 @@ export interface IDebounceConfig {
   timeout: number;
 }
 
-interface IWithStore {
+export interface IWithStore {
   store: any;
   dynaduxStore: any;
 }
 
-export const connect =
-  <TProps, >(
-    Component: React.ComponentType<TProps>,
-    config: IConnectConfig = {},
-  ): React.ComponentType<Omit<TProps, keyof IWithStore>> => {
-    const {shouldComponentUpdate} = config;
-    const Wrapper = class extends React.Component {
+export const connect = <TProps, >(
+  Component: React.ComponentType<TProps>,
+  config: IConnectConfig = {},
+): React.ComponentType<Omit<TProps, keyof IWithStore>> => {
+  const {shouldComponentUpdate} = config;
+  const Wrapper = class extends React.Component {
       private isMount = false;
 
       constructor(props: any, context: any) {
@@ -32,7 +33,7 @@ export const connect =
       }
 
       private get store(): { provider?: IStoreProviderAPI<any> } {
-        return this.context;
+        return this.context as any;
       }
 
       public componentDidMount() {
@@ -70,14 +71,14 @@ export const connect =
         return (
           <C
             store={this.context}
-            dynaduxStore={this.context.provider.store}
+            dynaduxStore={(this.context as any).provider.store}
             {...this.props}
           />
         );
       }
-    };
-
-    Wrapper.contextType = DynaDuxContext;
-
-    return Wrapper as any;
   };
+
+  Wrapper.contextType = DynaDuxContext;
+
+  return Wrapper as any;
+};

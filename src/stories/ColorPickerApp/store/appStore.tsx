@@ -1,6 +1,6 @@
 import {
   createStore,
-  dynaduxDebugMiddleware
+  dynaduxDebugMiddleware,
 } from "dynadux";
 
 import {
@@ -21,6 +21,8 @@ export const createAppStore = () => {
       dynaduxDebugMiddleware({debuggerStoreName: 'debug_store'}),
     ],
     onChange: (state, action, payload) => {
+      state;
+      payload;
       // On Logout, reset the color.
       if (action === ELoginSectionActions.LOG_OUT) appStore.color.actions.reset();
     },

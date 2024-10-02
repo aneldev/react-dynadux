@@ -1,4 +1,4 @@
-import { ICreateStoreAPI } from "dynadux";
+import {ICreateStoreAPI} from "dynadux";
 
 export interface ILoginSectionState {
   isLoading: boolean;
@@ -32,19 +32,26 @@ export const createLoginSection = (store: ICreateStoreAPI) => {
       userDisplayName: '',
     },
     reducers: {
-      [ELoginSectionActions.LOGIN_REQUEST]: ({payload, dispatch}) => {
+      [ELoginSectionActions.LOGIN_REQUEST]: ({
+        payload, dispatch,
+      }) => {
+        payload;
         (async () => {
-          const {loginName, psw}: ILOGIN_REQUEST_payload = payload;
           await new Promise(r => setTimeout(r, 300)); // Simulate network latency
-          dispatch<ILOGIN_RESPONSE_payload>(ELoginSectionActions.LOGIN_RESPONSE, {logged: true, userDisplayName: 'John Smith'});
+          dispatch<ILOGIN_RESPONSE_payload>(ELoginSectionActions.LOGIN_RESPONSE, {
+            logged: true,
+            userDisplayName: 'John Smith',
+          });
         })();
 
-        return {
-          isLoading: true,
-        };
+        return {isLoading: true};
       },
-      [ELoginSectionActions.LOGIN_RESPONSE]: ({payload, dispatch}) => {
-        const {logged, userDisplayName}: ILOGIN_RESPONSE_payload = payload;
+      [ELoginSectionActions.LOGIN_RESPONSE]: ({
+        payload, dispatch,
+      }) => {
+        const {
+          logged, userDisplayName,
+        }: ILOGIN_RESPONSE_payload = payload;
         dispatch(ELoginSectionActions.ON_LOGIN_STATE_CHANGE);
         return {
           isLoading: false,
@@ -60,7 +67,7 @@ export const createLoginSection = (store: ICreateStoreAPI) => {
         };
       },
       [ELoginSectionActions.ON_LOGIN_STATE_CHANGE]: () => ({}),
-    }
+    },
   });
 
   return {
@@ -68,7 +75,10 @@ export const createLoginSection = (store: ICreateStoreAPI) => {
       return section.state;
     },
     actions: {
-      login: (loginName: string, psw: string): void => section.dispatch<ILOGIN_REQUEST_payload>(ELoginSectionActions.LOGIN_REQUEST, {loginName, psw}),
+      login: (loginName: string, psw: string): void => section.dispatch<ILOGIN_REQUEST_payload>(ELoginSectionActions.LOGIN_REQUEST, {
+        loginName,
+        psw,
+      }),
       logout: (): void => section.dispatch<void>(ELoginSectionActions.LOG_OUT),
     },
   };

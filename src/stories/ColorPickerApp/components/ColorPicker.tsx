@@ -1,13 +1,15 @@
 import * as React from "react";
-import { connect } from "../../../../src";
-import { IAppStoreApi } from "../store/appStore";
-import { ELoginSectionActions } from "../store/loginSection";
+import {connect} from "../../../index";
+import {IAppStoreApi} from "../store/appStore";
+import {ELoginSectionActions} from "../store/loginSection";
 
 export interface IColorPickerProps {
   store: IAppStoreApi;
 }
 
 class ColorPickerComponent extends React.Component<IColorPickerProps> {
+  static __docgenInfo?: object;
+
   private handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     const {store: {color: {actions: {setColor}}}} = this.props;
     setColor(event.target.value);
@@ -16,9 +18,7 @@ class ColorPickerComponent extends React.Component<IColorPickerProps> {
   public render(): JSX.Element | null {
     const {
       store: {
-        login: {
-          state: {logged},
-        },
+        login: {state: {logged}},
         color: {
           state: {color},
           actions: {reset},
@@ -51,8 +51,8 @@ class ColorPickerComponent extends React.Component<IColorPickerProps> {
 export const ColorPicker = connect(
   ColorPickerComponent,
   {
-    shouldComponentUpdate: (action, payload) =>
+    shouldComponentUpdate: (action) =>
       action.startsWith('CL__')
-      || action === ELoginSectionActions.ON_LOGIN_STATE_CHANGE
+      || action === ELoginSectionActions.ON_LOGIN_STATE_CHANGE,
   },
 );

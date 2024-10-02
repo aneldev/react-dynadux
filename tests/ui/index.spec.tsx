@@ -1,20 +1,8 @@
-import {configure} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import {render} from '@testing-library/react';
 
-import * as React from 'react';
-import * as enzyme from 'enzyme';
-
-configure({adapter: new Adapter()});
-
-describe('Home', () => {
-  let wrapper;
-
+describe('React', () => {
   it('has expected content with deep render', () => {
-    wrapper = enzyme.shallow(
-      <div/>,
-      {},
-    );
-
-    expect(wrapper).toMatchSnapshot();
+    const {asFragment} = render(<div/>);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

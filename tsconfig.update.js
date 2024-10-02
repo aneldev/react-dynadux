@@ -17,8 +17,10 @@ if (isMultiModule) {
   const getModuleNames =
     root =>
       fs.readdirSync(root, {withFileTypes: true})
-        .filter(dirent => dirent.isDirectory())
-        .map(dirent => dirent.name);
+        .filter(item => item.isDirectory())
+        .map(item => item.name)
+        .filter(Boolean)
+        .sort((a, b) => a.localeCompare(b));
 
   const moduleNames = getModuleNames('./src');
 
