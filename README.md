@@ -266,8 +266,12 @@ The debounce config blocks changes (renders) within the timeout and applies the 
 
 ## 2.0.0
 
-First version. React 16.
+- First version. React 16.
 
 ## 3.0.0
 
-React 17.
+- React 17.
+
+## 4.0.0
+
+- React 18.
