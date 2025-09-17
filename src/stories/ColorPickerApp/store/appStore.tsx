@@ -20,9 +20,7 @@ export const createAppStore = () => {
     middlewares: [
       dynaduxDebugMiddleware({debuggerStoreName: 'debug_store'}),
     ],
-    onChange: (state, action, payload) => {
-      state;
-      payload;
+    onChange: (_state, action) => {
       // On Logout, reset the color.
       if (action === ELoginSectionActions.LOG_OUT) appStore.color.actions.reset();
     },

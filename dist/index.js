@@ -82,8 +82,7 @@ var connect = function connect(Component) {
       _classCallCheck(this, Wrapper);
       _this = _callSuper(this, Wrapper, [props, context]);
       _this.isMount = false;
-      _this.handleStoreChange = function (state, action, payload) {
-        state; // 4TS
+      _this.handleStoreChange = function (_state, action, payload) {
         var shouldUpdate = !shouldComponentUpdate || shouldComponentUpdate(action, payload);
         if (shouldUpdate) _this.callForceUpdate();
       };

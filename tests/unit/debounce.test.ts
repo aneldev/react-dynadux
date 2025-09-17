@@ -1,4 +1,4 @@
-import {debounce} from "../../src/debounce";
+import {debounce} from "../../src/utils/debounce";
 
 const delay = (ms: number): Promise<void> => new Promise(r => setTimeout(r, ms));
 

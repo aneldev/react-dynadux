@@ -11,3 +11,4 @@ export interface IWithStore {
     dynaduxStore: any;
 }
 export declare const connect: <TProps>(Component: React.ComponentType<TProps>, config?: IConnectConfig) => React.ComponentType<Omit<TProps, keyof IWithStore>>;
+//# sourceMappingURL=connect.d.ts.map
