@@ -1,13 +1,10 @@
 import {CSSProperties} from "react";
 
-import {
-  connect,
-} from "../../../index";
+import {useStoreAdvanced} from "../../../index";
 
 import {IAppStoreApi} from "../store/appStore";
 
 export interface ILoginBarProps {
-  store: IAppStoreApi;
   appIcon: JSX.Element;
 }
 
@@ -22,7 +19,7 @@ const buttonStyle: CSSProperties = {marginLeft: '8px'};
 
 const appIconStyle: CSSProperties = {float: 'left'}; // This is Nostalgia!
 
-const LoginBarComponent = (props: ILoginBarProps): JSX.Element => {
+export const LoginBar = (props: ILoginBarProps): JSX.Element => {
   const {appIcon} = props;
   const {
     state: {
@@ -34,7 +31,7 @@ const LoginBarComponent = (props: ILoginBarProps): JSX.Element => {
       login,
       logout,
     },
-  } = props.store.login;
+  } = useStoreAdvanced<IAppStoreApi>({shouldComponentUpdate: (action) => action.startsWith('LG__')}).login;
 
   console.log('#### LoginBar Render');
 
@@ -62,8 +59,3 @@ const LoginBarComponent = (props: ILoginBarProps): JSX.Element => {
     </div>
   );
 };
-
-export const LoginBar = connect(
-  LoginBarComponent,
-  {shouldComponentUpdate: (action) => action.startsWith('LG__')},
-);

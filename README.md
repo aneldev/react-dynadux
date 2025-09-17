@@ -177,90 +177,173 @@ Checkout this example:
 
 # API
 
-# `<Provider>` component
+# react-dynadux exports — how to use them
 
-React component with only one prop, the `store`.
+This package exposes a very small API that helps you wire your own business store into React components.
 
-App store can be any object. The only obligation is that it should have the `provider` property that is provided from the Dynadux's `createStore()` return.
+Exports:
+- `Provider`, `DynaDuxContext`, `IProviderProps`
+- `connect`, `IConnectConfig`, `IWithStore`
+- `useStore`
+- `useStoreAdvanced`
 
-Example
+Below you will find what each export does, when to use it, and concise examples.
 
-```
-import {createStore} from "dynadux";
 
-const createStore = () => {
-  const store = createStore({
-    initialState: {...},
-    reducers: {...},
-  });
+## Provider
+Wraps your application (or a subtree) and provides your business store to descendants via context.
 
-  return {
-    // Your getters, setters, methods
-    ...        
-    // Important, pass the provider prop of the createStore above
-    provider: store.provider,
-  };
-};
-```
+Signature:
+- Provider<TStore>(props: { store: TStore; children: ReactNode })
 
-Now let's create an `store` and pass it to the Provider.
+Example:
+```tsx
+import React from 'react';
+import { Provider } from 'react-dynadux';
+import { createStore } from './store'; // your business store factory
 
-```
-export class App extends React.Component {
-  private readonly store = createStore();
-
-  public render() {
-    return (
-      <Provider store={this.store}>
-        // nested components
-      </Provider>
-    );
-  }
+export function App() {
+  const store = React.useMemo(() => createStore(), []);
+  return (
+    <Provider store={store}>
+      <AppRoutes />
+    </Provider>
+  );
 }
 ```
 
-# `connect` method
+Notes:
+- Your business store must include a provider field from Dynadux's createStore under the hood (i.e., `provider: store.provider`). See README for the full pattern.
 
-## What is doing
 
-Use `connect` to connect any component with the closer `<Provider>`.
+## connect
+A Higher-Order Component that injects two props into the wrapped component:
+- store — your business store object you passed to `Provider`
+- dynaduxStore — the raw Dynadux store (exposes low-level state/dispatch); useful for libraries and advanced cases
 
-The `connect` will inject two properties in the props of the component:
-- `store` is the store that you passed with the `<Provider>` _and_
-- `dynaduxStore` is the store created by the `createStore` method
+Optional config lets you control when the component re-renders and optionally debounce updates.
 
-The `store` is your Business Store where encapsulates the dynadux store.
-
-The `dynaduxStore` is the return of the `createStore`, and it has the `state` getter and the `dispatch` method.
-
-With `dynaduxStore` you can dispatch an action. It is not recommended to dispatch actions, but this is needed when you create 3rd party libraries.
-
-## Signature
-
+Signature:
 ```
-const connect = (
-  Component: React.Component, 
-  config?: {
-    shouldComponentUpdate?: (action: string, payload?: any) => boolean;
-    debounce?: {timeout: number};
-   }
-): React.Component;
-
+connect(Component, config?) -> WrappedComponent
+- config.shouldComponentUpdate: (action: string, payload?: any) => boolean
+- config.debounce: { timeout: number }
+- Injected props: { store, dynaduxStore }
 ```
 
-The 1st argument is the `Component` that we want to inject the Provider's `store`.
+Examples:
+- Class component
+```tsx
+import React from 'react';
+import { connect } from 'react-dynadux';
 
-The 2nd argument is optional and is a config object with below optional properties:
+type ViewProps = {
+  // your own props
+};
 
-#### `shouldComponentUpdate`
-Is a callback that is called on each dispatch of the `store`. 
+type Injected = {
+  store: any;
+  dynaduxStore: any;
+};
 
-The callback is called with two arguments, the dispatched `action` and `payload`, and the callback should always return a boolean if the component should render or not.
+class View extends React.Component<ViewProps & Injected> {
+  render() {
+    const { store } = this.props;
+    return <div>Color: {store.state.ui.color}</div>;
+  }
+}
 
-#### `debounce`
-Is config object of one property, the `timeout`.
+export default connect(View, {
+  shouldComponentUpdate: (action) => action !== 'IGNORED_ACTION',
+  debounce: { timeout: 50 },
+});
+```
 
-The debounce config blocks changes (renders) within the timeout and applies the latest on the timeout's expiration.
+- Function component via connect
+```tsx
+import React from 'react';
+import { connect } from 'react-dynadux';
+
+function View({ store }: { store: any; dynaduxStore: any }) {
+  return <div>User: {store.state.user?.name}</div>;
+}
+
+export default connect(View);
+```
+
+Notes:
+- For most function components you’ll prefer the hooks below instead of `connect`. Keep `connect` for class components or when you need fine-grained, action-based render control without hooks.
+
+
+## useStore
+A minimal hook to read the current store instance from context. It returns exactly what you passed to `Provider`.
+
+Signature:
+- const store = useStore<TStore>()
+
+Example:
+```tsx
+import React from 'react';
+import { useStore } from 'react-dynadux';
+import type { AppStore } from '../store/types';
+
+export function Header() {
+  const store = useStore<AppStore>();
+  return <span>{store.state.appTitle}</span>;
+}
+```
+
+Pitfalls:
+- Must be used under a `Provider`; otherwise it throws an Error.
+
+
+## useStoreAdvanced
+A hook alternative to `connect` that lets you control re-renders based on dispatched actions and add debounce.
+
+It subscribes to the underlying Dynadux provider and triggers a component re-render only when your filter allows it.
+
+Signature:
+```
+const store = useStoreAdvanced(config)
+- config.shouldComponentUpdate: (action: string, payload?: any) => boolean
+- config.debounce: { timeout: number }
+```
+
+Example:
+```tsx
+import React from 'react';
+import { useStoreAdvanced } from 'react-dynadux';
+import type { AppStore } from '../store/types';
+
+export function OptimizedPanel() {
+  const store = useStoreAdvanced<AppStore>({
+    shouldComponentUpdate: (action) => action === 'USER_UPDATED' || action === 'THEME_CHANGED',
+    debounce: { timeout: 75 },
+  });
+  return <div>{store.state.user?.name}</div>;
+}
+```
+
+Notes:
+- Like `useStore`, this must be used under a `Provider` or it throws.
+- Unlike `connect`, this hook returns only your business store (not the raw `dynaduxStore`). If you need low-level access, prefer `connect` or expose specific helpers on your business store instead.
+
+
+## Types
+- `IProviderProps<TStore>` — props for Provider
+- `IConnectConfig` — config for connect and useStoreAdvanced
+- `IWithStore` — helper interface describing the injected props of connect
+
+
+## Choosing between APIs
+- Function components, no special filtering: `useStore`
+- Function components that must re-render only on certain actions or need debouncing: `useStoreAdvanced`
+- Class components or when you need `dynaduxStore` access: `connect`
+
+
+## Troubleshooting
+- Got an error "useStore must be used within a dynadux Provider" or "useConnectedStore must be used within DynaDux Provider"? Wrap your component subtree with `Provider` and make sure you pass your business store into it.
+- `connect` warns that your store should expose provider? Ensure your business store returns `provider: store.provider` from Dynadux's createStore.
 
 # Change log
 
@@ -275,3 +358,10 @@ The debounce config blocks changes (renders) within the timeout and applies the 
 ## 4.0.0
 
 - React 18.
+
+## 4.1.0
+
+- `useStore` hook
+- `useStoreAdvanced` hook
+- boilerplate update, upgrade dep dev versions
+- 

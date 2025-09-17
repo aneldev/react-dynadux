@@ -32,10 +32,7 @@ export const createLoginSection = (store: ICreateStoreAPI) => {
       userDisplayName: '',
     },
     reducers: {
-      [ELoginSectionActions.LOGIN_REQUEST]: ({
-        payload, dispatch,
-      }) => {
-        payload;
+      [ELoginSectionActions.LOGIN_REQUEST]: ({dispatch}): Partial<ILoginSectionState> => {
         (async () => {
           await new Promise(r => setTimeout(r, 300)); // Simulate network latency
           dispatch<ILOGIN_RESPONSE_payload>(ELoginSectionActions.LOGIN_RESPONSE, {
@@ -46,9 +43,12 @@ export const createLoginSection = (store: ICreateStoreAPI) => {
 
         return {isLoading: true};
       },
-      [ELoginSectionActions.LOGIN_RESPONSE]: ({
-        payload, dispatch,
-      }) => {
+      [ELoginSectionActions.LOGIN_RESPONSE]: (
+        {
+          payload,
+          dispatch,
+        },
+      ): Partial<ILoginSectionState> => {
         const {
           logged, userDisplayName,
         }: ILOGIN_RESPONSE_payload = payload;
@@ -59,7 +59,7 @@ export const createLoginSection = (store: ICreateStoreAPI) => {
           userDisplayName,
         };
       },
-      [ELoginSectionActions.LOG_OUT]: ({dispatch}) => {
+      [ELoginSectionActions.LOG_OUT]: ({dispatch}): Partial<ILoginSectionState> => {
         dispatch(ELoginSectionActions.ON_LOGIN_STATE_CHANGE);
         return {
           logged: false,

@@ -3,7 +3,7 @@ import * as React from "react";
 import {IStoreProviderAPI} from "dynadux/dist/commonJs/create/createStore";
 
 import {DynaDuxContext} from "./Provider";
-import {debounce} from "./debounce";
+import {debounce} from "./utils/debounce";
 
 export interface IConnectConfig {
   shouldComponentUpdate?: (action: string, payload?: any) => boolean;
@@ -55,8 +55,7 @@ export const connect = <TProps, >(
         this.store.provider.removeChangeEventListener(this.handleStoreChange);
       }
 
-      private handleStoreChange = (state: any, action: any, payload: any): void => {
-        state; // 4TS
+      private handleStoreChange = (_state: any, action: any, payload: any): void => {
         const shouldUpdate = !shouldComponentUpdate || shouldComponentUpdate(action, payload);
         if (shouldUpdate) this.callForceUpdate();
       };

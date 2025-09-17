@@ -5,3 +5,4 @@ export interface IProviderProps<TBusinessStore> {
 }
 export declare const DynaDuxContext: React.Context<any>;
 export declare const Provider: <TStoreAPI>(props: IProviderProps<TStoreAPI>) => import("react/jsx-runtime").JSX.Element;
+//# sourceMappingURL=Provider.d.ts.map

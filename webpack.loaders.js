@@ -8,6 +8,7 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
       },
+
       {
         // TypeScript loader
         test: /\.(tsx|ts)$/,
@@ -19,33 +20,64 @@ module.exports = {
           {
             loader: 'ts-loader',
             options: {
-              transpileOnly: false, // Ensure this is set to false or omitted to enable type checking
-              configFile: 'tsconfig.json',
+              transpileOnly: false,         // Ensure this is set to false or omitted to enable type checking
+              configFile: 'tsconfig.json',  // Note: This is removed in Storybook! Code point: 20240906173131
             }
           },
         ]
       },
-      {	// css loader
+
+      {
+        // CSS loader
+        // Note: This loader is removed in Storybook! Code point: 20240906173110
         test: /\.css$/,
+        exclude: /node_modules/,
         use: [
           'style-loader',
-          'css-loader'
+          "css-loader",
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                ident: 'postcss',
+                plugins: [
+                  require('postcss-flexbugs-fixes'),
+                  autoprefixer({
+                    overrideBrowserslist: [
+                      '>1%',
+                      'last 4 versions',
+                      'Firefox ESR',
+                      'not ie < 9', // React doesn't support IE8 anyway
+                    ],
+                    flexbox: 'no-2009',
+                  }),
+                ],
+              },
+            },
+          },
         ],
-        exclude: /node_modules/,
       },
+
       {
         // Rule for LESS modules
-        test: /\.module\.less$/,
-        exclude: /node_modules/,
+        test: /\.less$/,
+        exclude: [
+          /node_modules/,
+          /^((?!\.module).)*\.less$/,
+        ],
         use: [
           'style-loader',
           {
-            loader: 'typings-for-css-modules-loader',
+            loader: 'css-loader',
             options: {
-              importLoaders: 1,
-              modules: true,
-              localIdentName: "[name]-[local]--[hash:base64:12]",
-              namedExport: true,
+              modules: true,  // Enable CSS Modules for .module.less files
+            },
+          },
+          {
+            loader: 'typed-css-modules-loader',
+            options: {
+              camelCase: true,    // Convert hyphenated class names to camelCase
+              namedExports: true, // Export individual class names
             },
           },
           {
@@ -73,11 +105,14 @@ module.exports = {
       },
       {
         // Rule for regular LESS (non-modular)
-        test: /^((?!\.module).)*\.less$/,
-        exclude: /node_modules/,
+        test: /\.less$/,
+        exclude: [
+          /node_modules/,
+          /\.module\.less$/,
+        ],
         use: [
           'style-loader',
-          'css-loader', // No 'modules: true' here
+          'css-loader',
           {
             loader: 'postcss-loader',
             options: {
@@ -101,25 +136,32 @@ module.exports = {
           'less-loader',
         ],
       },
+
       {
-        test: /\.module.scss$/,
-        exclude: /node_modules/,
+        // Rule for SCSS modules
+        test: /\.scss$/,
+        exclude: [
+          /node_modules/,
+          /^((?!\.module).)*\.scss$/,
+        ],
         use: [
           'style-loader',
           {
-            loader: 'typings-for-css-modules-loader',
+            loader: 'css-loader',
             options: {
-              importLoaders: 1,
-              modules: true,
-              localIdentName: "[name]-[local]--[hash:base64:12]",
-              namedExport: true,
+              modules: true,  // Enable CSS Modules for .module.scss files
+            },
+          },
+          {
+            loader: 'typed-css-modules-loader',
+            options: {
+              camelCase: true,    // Convert hyphenated class names to camelCase
+              namedExports: true, // Export individual class names
             },
           },
           {
             loader: 'postcss-loader',
             options: {
-              // Necessary for external CSS imports to work
-              // https://github.com/facebookincubator/create-react-app/issues/2677
               postcssOptions: {
                 ident: 'postcss',
                 plugins: [
@@ -141,8 +183,12 @@ module.exports = {
         ],
       },
       {
-        test: /^((?!\.module).)*scss$/,
-        exclude: /node_modules/,
+        // Rule for regular SCSS (non-modular)
+        test: /\.scss$/,
+        exclude: [
+          /node_modules/,
+          /\.module\.scss$/,
+        ],
         use: [
           'style-loader',
           'css-loader',
@@ -150,8 +196,18 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
+                ident: 'postcss',
                 plugins: [
-                  require('autoprefixer'),
+                  require('postcss-flexbugs-fixes'),
+                  autoprefixer({
+                    overrideBrowserslist: [
+                      '>1%',
+                      'last 4 versions',
+                      'Firefox ESR',
+                      'not ie < 9', // React doesn't support IE8 anyway
+                    ],
+                    flexbox: 'no-2009',
+                  }),
                 ],
               },
             },
@@ -159,16 +215,18 @@ module.exports = {
           'sass-loader',
         ],
       },
+
       {
         // inline images load (loads the url() defined in the css)
         // help: https://christianalfoni.github.io/react-webpack-cookbook/Inlining-images.html
         test: /\.(png|jpg|gif)$/,
         exclude: /node_modules/,
-        loader: 'url-loader',
+        loader: "url-loader",
         options: {
           limit: 100000
         },
       },
+
       {
         test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
         exclude: /node_modules/,
@@ -188,6 +246,7 @@ module.exports = {
           outputPath: '/static/',
         },
       },
+
       // Alternative way to load fonts, always as links
       // {
       //   test: /\.(ttf|eot|woff|woff2)$/,
@@ -200,6 +259,10 @@ module.exports = {
         test: /\.svg$/,
         exclude: /node_modules/,
         loader: 'svg-inline-loader',
+      },
+      {
+        test: /\.md$/,
+        use: 'raw-loader',
       },
     ],
   },
