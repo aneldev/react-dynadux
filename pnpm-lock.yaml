@@ -13,7 +13,7 @@ importers:
         version: 2.0.4
       dynadux:
         specifier: github:aneldev/dynadux#feature/upgrade-boilerplate-fixing-2rd-party-deps-security-issues
-        version: https://codeload.github.com/aneldev/dynadux/tar.gz/cdaeeab5c653826fbb05e20712b34389d89aec5e
+        version: https://codeload.github.com/aneldev/dynadux/tar.gz/e4cfd2444eefbc0017ad0e1df5660a0b54784140
     devDependencies:
       '@babel/cli':
         specifier: ^7.1.2
@@ -3111,9 +3111,9 @@ packages:
   dyna-node-fs@1.0.4:
     resolution: {integrity: sha512-kQRlMQTn42GK5i9znkNicn/ZrWXzP3DnSZM6ZL6kfnbNdNAddfqZZOUw0YPDxfL/B8pp0lE7u23mOR4753s+xw==}
 
-  dynadux@https://codeload.github.com/aneldev/dynadux/tar.gz/cdaeeab5c653826fbb05e20712b34389d89aec5e:
-    resolution: {tarball: https://codeload.github.com/aneldev/dynadux/tar.gz/cdaeeab5c653826fbb05e20712b34389d89aec5e}
-    version: 3.0.1
+  dynadux@https://codeload.github.com/aneldev/dynadux/tar.gz/e4cfd2444eefbc0017ad0e1df5660a0b54784140:
+    resolution: {tarball: https://codeload.github.com/aneldev/dynadux/tar.gz/e4cfd2444eefbc0017ad0e1df5660a0b54784140}
+    version: 3.0.2-alpha.1
     engines: {node: '>=20.0.0 <21.0.0', npm: '>=10.0.0 <11.0.0'}
 
   eastasianwidth@0.2.0:
@@ -10020,7 +10020,7 @@ snapshots:
     dependencies:
       dyna-interfaces: 4.2.2
 
-  dynadux@https://codeload.github.com/aneldev/dynadux/tar.gz/cdaeeab5c653826fbb05e20712b34389d89aec5e: {}
+  dynadux@https://codeload.github.com/aneldev/dynadux/tar.gz/e4cfd2444eefbc0017ad0e1df5660a0b54784140: {}
 
   eastasianwidth@0.2.0: {}
 
