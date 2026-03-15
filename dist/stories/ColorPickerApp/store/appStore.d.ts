@@ -17,6 +17,6 @@ export declare const createAppStore: () => {
             setColor: (color: string) => void;
         };
     };
-    provider: import("dynadux/dist/commonJs/create/createStore").IStoreProviderAPI<any>;
+    provider: import("dynadux").IStoreProviderAPI<any>;
 };
 //# sourceMappingURL=appStore.d.ts.map
