@@ -44,7 +44,7 @@
   "license": "MIT",
   "dependencies": {
     "dyna-debounce": "^2.0.4",
-    "dynadux": "^2.5.8"
+    "dynadux": "github:aneldev/dynadux#feature/upgrade-boilerplate-fixing-2rd-party-deps-security-issues"
   },
   "peerDependencies": {
     "react": "^18.0.0",

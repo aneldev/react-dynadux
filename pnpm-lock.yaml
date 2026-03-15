@@ -12,8 +12,8 @@ importers:
         specifier: ^2.0.4
         version: 2.0.4
       dynadux:
-        specifier: ^2.5.8
-        version: 2.5.8
+        specifier: github:aneldev/dynadux#feature/upgrade-boilerplate-fixing-2rd-party-deps-security-issues
+        version: https://codeload.github.com/aneldev/dynadux/tar.gz/ecb465bb4014a2cdb1efd795f60959c157ff95a9
     devDependencies:
       '@babel/cli':
         specifier: ^7.1.2
@@ -3111,8 +3111,10 @@ packages:
   dyna-node-fs@1.0.4:
     resolution: {integrity: sha512-kQRlMQTn42GK5i9znkNicn/ZrWXzP3DnSZM6ZL6kfnbNdNAddfqZZOUw0YPDxfL/B8pp0lE7u23mOR4753s+xw==}
 
-  dynadux@2.5.8:
-    resolution: {integrity: sha512-H9VaFIjKAcClI+GgeGiq9trL6E31hT9xPajG1vZTVMK4ewO9ACKDi5cAkftSj0ivy89SqdCmSAn2y1sgEpDx9A==}
+  dynadux@https://codeload.github.com/aneldev/dynadux/tar.gz/ecb465bb4014a2cdb1efd795f60959c157ff95a9:
+    resolution: {tarball: https://codeload.github.com/aneldev/dynadux/tar.gz/ecb465bb4014a2cdb1efd795f60959c157ff95a9}
+    version: 3.0.0
+    engines: {node: '>=20.0.0 <21.0.0', npm: '>=10.0.0 <11.0.0'}
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -6420,6 +6422,7 @@ packages:
   whatwg-encoding@2.0.0:
     resolution: {integrity: sha512-p41ogyeMUrw3jWclHWTQg1k05DSVXPLcVxRTYsXUk+ZooOCZLcoYgPZ/HL/D/N+uQPOtcp1me1WhBEaX02mhWg==}
     engines: {node: '>=12'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@3.0.0:
     resolution: {integrity: sha512-nt+N2dzIutVRxARx1nghPKGv1xHikU7HKdfafKkLNLindmPU/ch3U31NOCGGA/dmPcmb1VlofO0vnKAcsm0o/Q==}
@@ -10017,7 +10020,7 @@ snapshots:
     dependencies:
       dyna-interfaces: 4.2.2
 
-  dynadux@2.5.8: {}
+  dynadux@https://codeload.github.com/aneldev/dynadux/tar.gz/ecb465bb4014a2cdb1efd795f60959c157ff95a9: {}
 
   eastasianwidth@0.2.0: {}
 
