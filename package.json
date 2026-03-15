@@ -1,6 +1,6 @@
 {
   "name": "react-dynadux",
-  "version": "4.1.1",
+  "version": "5.0.2",
   "description": "React Provider for Dynadux stores",
   "repository": {
     "type": "git",
@@ -44,7 +44,7 @@
   "license": "MIT",
   "dependencies": {
     "dyna-debounce": "^2.0.4",
-    "dynadux": "^2.5.8"
+    "dynadux": "^3.0.6"
   },
   "peerDependencies": {
     "react": "^18.0.0",
