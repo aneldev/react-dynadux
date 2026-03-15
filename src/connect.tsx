@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {IStoreProviderAPI} from "dynadux/dist/commonJs/create/createStore";
+import {IStoreProviderAPI} from "dynadux";
 
 import {DynaDuxContext} from "./Provider";
 import {debounce} from "./utils/debounce";
