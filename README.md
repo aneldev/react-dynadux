@@ -364,4 +364,7 @@ Notes:
 - `useStore` hook
 - `useStoreAdvanced` hook
 - boilerplate update, upgrade dep dev versions
-- 
+
+## 5.x
+
+- Use `dynadux` v3.x [see breaking changes](https://github.com/aneldev/dynadux/blob/master/doc/Change-Log.md#v3x)

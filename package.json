@@ -1,6 +1,6 @@
 {
   "name": "react-dynadux",
-  "version": "5.0.0-alpha.1",
+  "version": "5.0.1",
   "description": "React Provider for Dynadux stores",
   "repository": {
     "type": "git",
