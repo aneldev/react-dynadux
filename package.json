@@ -47,8 +47,8 @@
     "dynadux": "^3.0.6"
   },
   "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
@@ -70,8 +70,8 @@
     "@testing-library/react": "^16.0.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.5.0",
-    "@types/react": "^18.3.4",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
     "autoprefixer": "^10.4.20",
@@ -108,8 +108,8 @@
     "postcss-flexbugs-fixes": "5.0.2",
     "postcss-loader": "^8.1.1",
     "raw-loader": "^4.0.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-refresh": "^0.14.2",
     "react-test-renderer": "^18.3.1",
     "rimraf": "^6.0.1",

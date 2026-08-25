@@ -1,4 +1,5 @@
 import * as React from "react";
+import type {JSX} from "react";
 
 import {IStoreProviderAPI} from "dynadux";
 

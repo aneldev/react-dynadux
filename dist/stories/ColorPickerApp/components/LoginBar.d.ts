@@ -1,3 +1,4 @@
+import { type JSX } from "react";
 export interface ILoginBarProps {
     appIcon: JSX.Element;
 }

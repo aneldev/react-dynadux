@@ -3,6 +3,8 @@ import {connect} from "../../../index";
 import {IAppStoreApi} from "../store/appStore";
 import {ELoginSectionActions} from "../store/loginSection";
 
+import type {JSX} from "react";
+
 export interface IColorPickerProps {
   store: IAppStoreApi;
 }

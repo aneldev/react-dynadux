@@ -1,4 +1,5 @@
 import * as React from "react";
+import { type JSX } from "react";
 export declare class ColorPickerApp extends React.Component {
     static __docgenInfo?: object;
     private readonly store;

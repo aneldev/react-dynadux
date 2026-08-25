@@ -1,4 +1,6 @@
-import {CSSProperties} from "react";
+import {
+  CSSProperties, type JSX,
+} from "react";
 
 import {useStoreAdvanced} from "../../../index";
 

@@ -1,5 +1,8 @@
 import * as React from "react";
-import {CSSProperties} from "react";
+import {
+  type JSX,
+  CSSProperties,
+} from "react";
 
 import {Provider} from "../../index";
 
